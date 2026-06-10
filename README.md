@@ -1,61 +1,38 @@
-# Stambha plugins
+# Stambha-plugins
 
-Official **optional extensions** for [Stambha](https://github.com/Mivaya/Stambha). The core framework ships command pipeline, gateway, REST, loader, and `@stambha/plugins` (plugin host). **This repo** ships drivers and add-ons that depend on published `@stambha/*` packages.
+Official **optional** packages for [Stambha](https://github.com/mivaya/Stambha) — published separately from the core framework with **independent** semver ([Changesets](https://github.com/changesets/changesets)).
 
 ## Packages
 
 | Package | Description |
 |---------|-------------|
-| [`@stambha/cache`](./packages/cache) | Pluggable in-memory cache for gateway / bot workers |
-| [`@stambha/metrics`](./packages/metrics) | Prometheus metrics and `/metrics` HTTP server |
-| [`@stambha/vault-sql`](./packages/vault-sql) | SQLite and PostgreSQL drivers for `@stambha/vault` |
+| [`@stambha/cache`](./packages/cache) | Pluggable cache (memory; Redis drivers planned) |
+| [`@stambha/metrics`](./packages/metrics) | Prometheus metrics + HTTP scrape server |
+| [`@stambha/vault-sql`](./packages/vault-sql) | SQLite / PostgreSQL drivers for Vault |
 
-### Planned (not yet in this repo)
-
-| Package | Description |
-|---------|-------------|
-| `@stambha/dashboard` | HTTP + OAuth2 + Vault routes for web dashboards |
-| `@stambha/i18n` | Locale files and command translation |
-| `@stambha/cron` | Distributed scheduled tasks |
-| `@stambha/dev-reload` | Dev-only piece hot reload |
+Future: `@stambha/dashboard`, `@stambha/i18n`, `@stambha/cron`, …
 
 ## Install
 
-From npm (after publish):
-
 ```bash
-pnpm add @stambha/metrics @stambha/core
-pnpm add @stambha/vault-sql @stambha/vault
+pnpm add @stambha/vault-sql @stambha/vault @stambha/core
 ```
+
+Peer dependencies on `@stambha/*` core packages — see each package’s `package.json`.
 
 ## Development
 
-Requires [Stambha](https://github.com/Mivaya/Stambha) packages on npm (`@stambha/core` ^0.2.1, `@stambha/vault` ^0.2.1 for vault-sql).
-
 ```bash
-git clone git@github.com:Mivaya/Stambha-plugins.git
-cd Stambha-plugins
 pnpm install
 pnpm build
 pnpm test
 ```
 
-## Integration
+## Releasing
 
-Extensions use the core plugin host — `definePlugin()` from `@stambha/plugins` in the main framework repo. No second plugin API.
-
-```ts
-import { attachPlugins } from "@stambha/plugins";
-import { createDashboardPlugin } from "@stambha/dashboard"; // when published
-
-attachPlugins(client, { plugins: [/* ... */] });
-```
+See [PUBLISHING.md](./PUBLISHING.md).
 
 ## Related
 
-- [Stambha framework](https://github.com/Mivaya/Stambha)
-- [ADR 003 — plugins monorepo](https://github.com/Mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)
-
-## License
-
-MIT © Mivaya
+- [Stambha core](https://github.com/mivaya/Stambha) — fixed-version monorepo (`@stambha/core`, `gateway`, `loader`, …)
+- [ADR 003 — plugins monorepo](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)

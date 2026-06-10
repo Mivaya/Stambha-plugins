@@ -1,8 +1,8 @@
 {
   "name": "stambha-plugins",
-  "version": "0.2.1",
+  "version": "0.0.0",
   "private": true,
-  "description": "Official Stambha extensions — cache, metrics, vault drivers, and future dashboard/i18n packages.",
+  "description": "Official Stambha extensions — independent versioning via Changesets",
   "author": "Mivaya",
   "license": "MIT",
   "homepage": "https://github.com/Mivaya/Stambha-plugins#readme",
@@ -13,25 +13,20 @@
   "bugs": {
     "url": "https://github.com/Mivaya/Stambha/issues"
   },
-  "keywords": [
-    "discord",
-    "discord-bot",
-    "stambha",
-    "plugins",
-    "extensions"
-  ],
   "type": "module",
   "scripts": {
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "typecheck": "pnpm -r run typecheck"
+    "typecheck": "pnpm -r run typecheck",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@stambha/core": "^0.2.1",
-    "@stambha/vault": "^0.2.1",
+    "@changesets/cli": "^2.29.0",
     "typescript": "^5.7.3",
     "vitest": "^3.0.5"
   },
