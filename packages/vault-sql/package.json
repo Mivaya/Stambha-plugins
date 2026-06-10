@@ -1,0 +1,57 @@
+{
+  "name": "@stambha/vault-sql",
+  "version": "0.2.1",
+  "description": "SQL drivers for Stambha Vault — SQLite and PostgreSQL backends",
+  "author": "Mivaya",
+  "license": "MIT",
+  "homepage": "https://github.com/Mivaya/Stambha-plugins/tree/main/packages/vault-sql#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mivaya/Stambha-plugins.git",
+    "directory": "packages/vault-sql"
+  },
+  "bugs": {
+    "url": "https://github.com/Mivaya/Stambha/issues"
+  },
+  "keywords": [
+    "discord",
+    "stambha",
+    "vault",
+    "sqlite",
+    "postgresql"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@stambha/vault": "^0.2.1"
+  },
+  "dependencies": {
+    "pg": "^8.13.3"
+  },
+  "devDependencies": {
+    "@stambha/vault": "^0.2.1",
+    "@types/node": "^22.13.4",
+    "@types/pg": "^8.11.11",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

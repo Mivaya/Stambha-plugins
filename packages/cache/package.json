@@ -1,0 +1,43 @@
+{
+  "name": "@stambha/cache",
+  "version": "0.2.1",
+  "description": "Pluggable cache layer for Stambha gateway and bot workers",
+  "author": "Mivaya",
+  "license": "MIT",
+  "homepage": "https://github.com/Mivaya/Stambha-plugins/tree/main/packages/cache#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mivaya/Stambha-plugins.git",
+    "directory": "packages/cache"
+  },
+  "bugs": {
+    "url": "https://github.com/Mivaya/Stambha/issues"
+  },
+  "keywords": ["discord", "discord-bot", "stambha", "cache"],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
