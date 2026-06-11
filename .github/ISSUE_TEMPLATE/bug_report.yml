@@ -1,0 +1,79 @@
+name: Bug report
+description: Report something broken in an extension package
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Include enough detail to reproduce. For `@stambha/core` bugs, use the [core repo](https://github.com/mivaya/Stambha/issues).
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - "@stambha/cache"
+        - "@stambha/metrics"
+        - "@stambha/vault-sql"
+        - Other / new package
+        - Unsure
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Package version or commit
+      placeholder: e.g. @stambha/metrics@0.2.1 or abc1234
+    validations:
+      required: true
+
+  - type: input
+    id: core_version
+    attributes:
+      label: @stambha/core version (if applicable)
+      placeholder: e.g. 0.2.2
+
+  - type: input
+    id: node
+    attributes:
+      label: Node.js version
+      placeholder: e.g. 22.11.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or stack trace
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for duplicates
+          required: true

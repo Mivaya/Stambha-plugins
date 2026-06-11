@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Mivaya/Stambha-plugins.git"
   },
   "bugs": {
-    "url": "https://github.com/Mivaya/Stambha/issues"
+    "url": "https://github.com/Mivaya/Stambha-plugins/issues"
   },
   "type": "module",
   "scripts": {
