@@ -1,4 +1,4 @@
-import { type Options, defineConfig } from "tsup";
+import { defineConfig, type Options } from "tsup";
 
 /** Shared tsup defaults — dual ESM + CJS for Node `import` and `require`. */
 export function stambhaPackageConfig(overrides: Options = {}) {

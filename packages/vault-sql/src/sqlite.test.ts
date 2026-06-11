@@ -1,4 +1,4 @@
-import { Vault, defineBlueprint, field } from "@stambha/vault";
+import { defineBlueprint, field, Vault } from "@stambha/vault";
 import { describe, expect, it } from "vitest";
 
 const GuildBlueprint = defineBlueprint({

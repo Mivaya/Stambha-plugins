@@ -1,4 +1,4 @@
-import { type Server, createServer } from "node:http";
+import { createServer, type Server } from "node:http";
 import type { Registry } from "prom-client";
 
 export interface MetricsServerOptions {

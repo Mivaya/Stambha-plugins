@@ -12,12 +12,7 @@ export interface RestMetricsCollector {
 
 /** Map {@link RestMetricsCollector} to `@stambha/rest` {@link RestTelemetry}. */
 export function restMetricsToTelemetry(collector: RestMetricsCollector): {
-  recordRequest(event: {
-    method: string;
-    route: string;
-    status: number;
-    durationMs: number;
-  }): void;
+  recordRequest(event: { method: string; route: string; status: number; durationMs: number }): void;
   recordRateLimit(bucketId: string): void;
   recordWait(bucketId: string, waitMs: number): void;
 } {

@@ -13,7 +13,12 @@
   "bugs": {
     "url": "https://github.com/Mivaya/Stambha/issues"
   },
-  "keywords": ["discord", "discord-bot", "stambha", "cache"],
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "stambha",
+    "cache"
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -25,7 +30,10 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
