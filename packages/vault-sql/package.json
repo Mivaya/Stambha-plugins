@@ -13,13 +13,7 @@
   "bugs": {
     "url": "https://github.com/Mivaya/Stambha/issues"
   },
-  "keywords": [
-    "discord",
-    "stambha",
-    "vault",
-    "sqlite",
-    "postgresql"
-  ],
+  "keywords": ["discord", "stambha", "vault", "sqlite", "postgresql"],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

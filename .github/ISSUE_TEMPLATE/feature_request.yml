@@ -1,0 +1,51 @@
+name: Feature request
+description: Propose a new extension or enhancement
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For new packages or breaking API changes, describe the problem before opening a PR. See [ADR 003](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md).
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Package name, API sketch, and peer dependencies on core.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Cache / Redis drivers
+        - Metrics / observability
+        - Vault SQL or other persistence drivers
+        - Dashboard / HTTP API (future)
+        - i18n / cron / dev tooling (future)
+        - Docs / repo config
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+
+  - type: checkboxes
+    id: willing
+    attributes:
+      label: Contribution
+      options:
+        - label: I am willing to open a PR for this (after discussion if needed)

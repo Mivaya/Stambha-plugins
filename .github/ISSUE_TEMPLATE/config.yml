@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contributing guide
+    url: https://github.com/Mivaya/Stambha-plugins/blob/main/.github/CONTRIBUTING.md
+    about: How to fork, branch, test, and open a pull request
+  - name: Stambha core issues
+    url: https://github.com/mivaya/Stambha/issues
+    about: Bugs in @stambha/core, gateway, loader, etc.

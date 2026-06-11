@@ -1,7 +1,11 @@
 export type { CommandOutcome, PieceKind, MetricsCollector } from "./types.js";
 export type { RestMetricsCollector } from "./rest/types.js";
 export { restMetricsToTelemetry } from "./rest/types.js";
-export { createPrometheusRestMetrics, type PrometheusRestMetricsOptions, type PrometheusRestMetricsHandle } from "./rest/createPrometheusRestMetrics.js";
+export {
+  createPrometheusRestMetrics,
+  type PrometheusRestMetricsOptions,
+  type PrometheusRestMetricsHandle,
+} from "./rest/createPrometheusRestMetrics.js";
 export { InMemoryMetrics, type CommandRecord } from "./InMemoryMetrics.js";
 export { attachClientMetrics } from "./attachClientMetrics.js";
 export {

@@ -1,5 +1,7 @@
 # Stambha-plugins
 
+[![GitHub](https://img.shields.io/github/license/Mivaya/Stambha-plugins)](./LICENSE)
+
 Official **optional** packages for [Stambha](https://github.com/mivaya/Stambha) — published separately from the core framework with **independent** semver ([Changesets](https://github.com/changesets/changesets)).
 
 ## Packages
@@ -28,9 +30,21 @@ pnpm build
 pnpm test
 ```
 
+## Contributing
+
+See [`.github/CONTRIBUTING.md`](./.github/CONTRIBUTING.md). Publishable changes need a **changeset** (`pnpm changeset`).
+
 ## Releasing
 
-See [PUBLISHING.md](./PUBLISHING.md).
+See [`.github/PUBLISHING.md`](./.github/PUBLISHING.md).
+
+## Security
+
+Report vulnerabilities privately — [SECURITY.md](./SECURITY.md).
+
+## License
+
+[MIT](./LICENSE) © Mivaya
 
 ## Related
 

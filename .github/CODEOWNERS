@@ -1,0 +1,6 @@
+# Default: org team (https://github.com/orgs/mivaya/teams — slug: stambha-maintainers)
+* @mivaya/stambha-maintainers
+
+# Security-sensitive config
+/.github/ @mivaya/stambha-maintainers
+/SECURITY.md @mivaya/stambha-maintainers
