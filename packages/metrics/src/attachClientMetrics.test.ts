@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
 import { StambhaClient } from "@stambha/core";
-import { attachClientMetrics } from "./attachClientMetrics.js";
+import { describe, expect, it } from "vitest";
 import { InMemoryMetrics } from "./InMemoryMetrics.js";
+import { attachClientMetrics } from "./attachClientMetrics.js";
 
 describe("attachClientMetrics", () => {
   it("records command success and errors", () => {

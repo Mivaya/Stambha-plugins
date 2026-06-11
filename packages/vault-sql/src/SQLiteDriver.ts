@@ -50,9 +50,7 @@ export class SQLiteDriver implements VaultDriver {
 
     const placeholders = ids.map(() => "?").join(", ");
     const rows = this.db
-      .prepare(
-        `SELECT id, data FROM ${VAULT_TABLE} WHERE ledger = ? AND id IN (${placeholders})`,
-      )
+      .prepare(`SELECT id, data FROM ${VAULT_TABLE} WHERE ledger = ? AND id IN (${placeholders})`)
       .all(ledger, ...ids) as { id: string; data: string }[];
 
     for (const row of rows) {

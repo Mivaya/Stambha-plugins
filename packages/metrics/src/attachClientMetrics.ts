@@ -2,7 +2,10 @@ import type { StambhaClient } from "@stambha/core";
 import type { MetricsCollector } from "./types.js";
 
 /** Subscribe to Stambha client events and forward them to a {@link MetricsCollector}. */
-export function attachClientMetrics(client: StambhaClient, collector: MetricsCollector): () => void {
+export function attachClientMetrics(
+  client: StambhaClient,
+  collector: MetricsCollector,
+): () => void {
   const onReady = (): void => {
     collector.setReady(true);
   };
@@ -31,7 +34,9 @@ export function attachClientMetrics(client: StambhaClient, collector: MetricsCol
     });
   };
 
-  const onBlocked = (payload: { ctx: { commandName: string; kind: import("@stambha/core").CommandKind } }): void => {
+  const onBlocked = (payload: {
+    ctx: { commandName: string; kind: import("@stambha/core").CommandKind };
+  }): void => {
     collector.recordCommand({
       command: payload.ctx.commandName,
       kind: payload.ctx.kind,
@@ -39,7 +44,9 @@ export function attachClientMetrics(client: StambhaClient, collector: MetricsCol
     });
   };
 
-  const onDenied = (payload: { ctx: { commandName: string; kind: import("@stambha/core").CommandKind } }): void => {
+  const onDenied = (payload: {
+    ctx: { commandName: string; kind: import("@stambha/core").CommandKind };
+  }): void => {
     collector.recordCommand({
       command: payload.ctx.commandName,
       kind: payload.ctx.kind,

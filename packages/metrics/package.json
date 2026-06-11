@@ -13,13 +13,7 @@
   "bugs": {
     "url": "https://github.com/Mivaya/Stambha/issues"
   },
-  "keywords": [
-    "discord",
-    "stambha",
-    "metrics",
-    "prometheus",
-    "observability"
-  ],
+  "keywords": ["discord", "stambha", "metrics", "prometheus", "observability"],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

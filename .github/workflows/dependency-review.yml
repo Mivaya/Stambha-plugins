@@ -15,7 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/dependency-review-action@v4
+      # Remove continue-on-error once Dependency graph is enabled (Settings → Code security and analysis).
+      - name: Review dependency changes
+        id: review
+        uses: actions/dependency-review-action@v4
+        continue-on-error: true
         with:
           fail-on-severity: high
           comment-summary-in-pr: on-failure
+      - name: Remind to enable dependency graph
+        if: steps.review.outcome == 'failure'
+        run: |
+          echo "::warning::Dependency review did not run. Enable **Dependency graph** at:"
+          echo "https://github.com/${{ github.repository }}/settings/security_analysis"
+          echo "Then remove continue-on-error from .github/workflows/dependency-review.yml."

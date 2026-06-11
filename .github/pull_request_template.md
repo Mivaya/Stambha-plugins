@@ -2,6 +2,12 @@
 
 <!-- What does this PR do? Link issues: Fixes #123 -->
 
+<!-- stambha-pr-autofill:start -->
+
+> CI will auto-fill packages, changesets, and changed files on the first push.
+
+<!-- stambha-pr-autofill:end -->
+
 ## Type of change
 
 - [ ] Bug fix (non-breaking)
@@ -10,14 +16,6 @@
 - [ ] Documentation only
 - [ ] Tests only
 - [ ] CI / repo config
-
-## Packages touched
-
-- [ ] `@stambha/cache`
-- [ ] `@stambha/metrics`
-- [ ] `@stambha/vault-sql`
-- [ ] New package (describe below)
-- [ ] Repo config only
 
 ## Motivation
 

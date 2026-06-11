@@ -1,4 +1,4 @@
-import { createServer, type Server } from "node:http";
+import { type Server, createServer } from "node:http";
 import type { Registry } from "prom-client";
 
 export interface MetricsServerOptions {
@@ -39,8 +39,7 @@ export function createMetricsServer(options: MetricsServerOptions): Promise<Metr
     server.once("error", reject);
     server.listen(options.port, host, () => {
       const addr = server.address();
-      const actualPort =
-        typeof addr === "object" && addr !== null ? addr.port : options.port;
+      const actualPort = typeof addr === "object" && addr !== null ? addr.port : options.port;
       resolve({
         url: `http://${host}:${actualPort}`,
         close: () =>

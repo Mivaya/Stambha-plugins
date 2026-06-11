@@ -12,7 +12,9 @@ export interface PrometheusMetricsHandle {
   readonly collector: MetricsCollector;
 }
 
-export function createPrometheusMetrics(options: PrometheusMetricsOptions = {}): PrometheusMetricsHandle {
+export function createPrometheusMetrics(
+  options: PrometheusMetricsOptions = {},
+): PrometheusMetricsHandle {
   const register = options.register ?? new Registry();
   const prefix = options.prefix ?? "stambha_";
 
