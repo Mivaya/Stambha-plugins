@@ -18,7 +18,7 @@ jobs:
       # Remove continue-on-error once Dependency graph is enabled (Settings → Code security and analysis).
       - name: Review dependency changes
         id: review
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@v5
         continue-on-error: true
         with:
           fail-on-severity: high
