@@ -1,6 +1,6 @@
 {
   "name": "@stambha/vault-sql",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "SQL drivers for Stambha Vault — SQLite and PostgreSQL backends",
   "author": "Mivaya",
   "license": "MIT",
