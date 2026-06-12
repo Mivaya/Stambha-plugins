@@ -28,7 +28,12 @@ function writeJson(file, data) {
 
 function matchesSelector(dir, pkgName, selector) {
   const normalized = selector.replace(/^@stambha\//, "");
-  return dir === selector || dir === normalized || pkgName === selector || pkgName === `@stambha/${normalized}`;
+  return (
+    dir === selector ||
+    dir === normalized ||
+    pkgName === selector ||
+    pkgName === `@stambha/${normalized}`
+  );
 }
 
 let bumped = 0;
