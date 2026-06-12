@@ -1,40 +1,55 @@
 # Publishing extensions (`Stambha-plugins`)
 
-This repo uses **[Changesets](https://github.com/changesets/changesets)** with **independent versioning** — each `@stambha/*` package has its own semver.
+Each `@stambha/*` package in this repo has its **own semver**. Releases are **tag-driven** via GitHub Releases (no Changesets).
 
 The [**Stambha**](https://github.com/mivaya/Stambha) core repo uses **fixed** versioning (all core packages share one version).
-
----
-
-## Contributor workflow
-
-```bash
-pnpm changeset
-```
-
-Select only the packages you changed. Commit the `.changeset/*.md` file with your PR.
 
 ---
 
 ## Maintainer release flow
 
 ```text
-PR with changeset(s)  →  merge to main
+Merge PRs to main
        ↓
-Release workflow runs changesets/action
+Bump version in each changed packages/<name>/package.json (+ CHANGELOG if you keep one)
        ↓
-Opens/updates "Version packages" PR
+git tag v<package>-<semver>  (e.g. vcache-0.2.2) && git push --tags
        ↓
-Merge Version packages PR  →  npm publish (@stambha/*)
+GitHub Release (published)  →  publish-npm.yml  →  npm
 ```
 
-Workflow: [`.github/workflows/release.yml`](./workflows/release.yml)
+Workflow: [`.github/workflows/publish-npm.yml`](./workflows/publish-npm.yml)
+
+`pnpm -r publish` uploads **every** package under `packages/*` at its current `package.json` version. Only bump packages you intend to ship; unchanged versions will no-op or fail if already on npm.
+
+### Tag + GitHub Release
+
+Use one release per publish batch, or one per package — ensure `package.json` versions match what you want on npm before publishing.
+
+- **Stable** → npm dist-tag `latest`
+- **Pre-release** (GitHub checkbox) → npm dist-tag `beta`
+
+### Manual publish
+
+Actions → **Publish npm** → workflow_dispatch (dry run by default).
+
+```bash
+pnpm build
+pnpm test
+NPM_TOKEN=... pnpm publish:npm
+```
+
+---
+
+## Contributor workflow
+
+1. Change code — **no changeset file**.
+2. Do not bump versions in PRs unless maintainer asks.
+3. Update package README for user-facing changes.
 
 ---
 
 ## Peer dependencies
-
-Extension packages declare peers on core, for example:
 
 ```json
 "peerDependencies": {
@@ -48,15 +63,9 @@ Bump peer ranges when core ships breaking majors.
 
 ## npm setup
 
-Same `@stambha` npm org as core. GitHub secret **`NPM_TOKEN`** on this repo (or org-wide). Optional **Environment `npm`** with reviewers on the Release workflow.
+Same `@stambha` npm org as core. GitHub secret **`NPM_TOKEN`**. Optional **Environment `npm`**.
 
-### Manual publish (local)
-
-```bash
-pnpm changeset
-pnpm version-packages
-pnpm release
-```
+Every package needs `"publishConfig": { "access": "public" }`.
 
 ---
 
@@ -65,5 +74,6 @@ pnpm release
 | Error | Fix |
 |-------|-----|
 | 403 Forbidden | Token lacks `@stambha` scope |
-| Version already exists | Add a new changeset and merge the Version PR |
+| E404 on publish | `publishConfig.access: public` + valid `NPM_TOKEN` |
+| Version already exists | Bump semver in `package.json` |
 | Peer dependency warnings | Align `peerDependencies` with latest core on npm |

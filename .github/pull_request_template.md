@@ -4,7 +4,7 @@
 
 <!-- stambha-pr-autofill:start -->
 
-> CI will auto-fill packages, changesets, and changed files on the first push.
+> CI will auto-fill packages and changed files on the first push.
 
 <!-- stambha-pr-autofill:end -->
 
@@ -30,7 +30,7 @@
 - [ ] `pnpm build` passes locally
 - [ ] `pnpm test` passes locally
 - [ ] `pnpm lint` passes locally
-- [ ] Changeset added (`pnpm changeset`) if publishable packages changed
+- [ ] Version bump deferred to maintainer release (do not bump `package.json` in PRs unless asked)
 - [ ] README updated for user-facing changes
 - [ ] Peer dependency ranges reviewed against core
 - [ ] No secrets or tokens committed
