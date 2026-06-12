@@ -36,15 +36,9 @@ Single package:
 pnpm --filter @stambha/metrics test
 ```
 
-## Changesets (required for publishable changes)
+## Releases
 
-This repo uses **independent** [Changesets](https://github.com/changesets/changesets) — bump only the packages you changed.
-
-```bash
-pnpm changeset
-```
-
-Commit the generated `.changeset/*.md` file with your PR. See [PUBLISHING.md](./PUBLISHING.md).
+Each package has its **own version**. Maintainers bump `packages/*/package.json` and publish via GitHub Releases — see [PUBLISHING.md](./PUBLISHING.md). Do not bump versions in contributor PRs unless asked.
 
 ## Branch workflow
 
