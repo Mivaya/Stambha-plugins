@@ -11,7 +11,12 @@ The [**Stambha**](https://github.com/mivaya/Stambha) core repo uses **fixed** ve
 ```text
 Merge PRs to main
        ↓
-Bump version in each changed packages/<name>/package.json (+ CHANGELOG if you keep one)
+Bump versions (+ CHANGELOG):
+
+```bash
+pnpm version:bump 0.2.2              # all packages
+pnpm version:bump 0.2.2 cache metrics # only selected packages
+```
        ↓
 git tag v<package>-<semver>  (e.g. vcache-0.2.2) && git push --tags
        ↓
