@@ -18,6 +18,27 @@ importers:
         specifier: ^3.0.5
         version: 3.2.6(@types/node@22.19.20)
 
+  packages/api:
+    devDependencies:
+      '@stambha/core':
+        specifier: ^1.2.0
+        version: 1.2.0
+      '@stambha/plugins':
+        specifier: ^1.2.0
+        version: 1.2.0(@stambha/core@1.2.0)
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.19.20
+      tsup:
+        specifier: ^8.3.6
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.5
+        version: 3.2.6(@types/node@22.19.20)
+
   packages/cache:
     devDependencies:
       '@types/node':
@@ -63,7 +84,7 @@ importers:
     devDependencies:
       '@stambha/vault':
         specifier: ^0.2.1
-        version: 0.2.1(@stambha/core@0.2.1)
+        version: 0.2.1(@stambha/core@1.2.0)
       '@types/node':
         specifier: ^22.13.4
         version: 22.19.20
@@ -437,8 +458,22 @@ packages:
     resolution: {integrity: sha512-LZtpq3feP9Nf37YUVcJ2N5qsc+FEtlcsVhA5GqsRVfntcHD3iQ3Da28LALfHAr5OLwHGDVAJLvoh30NjU8iqHg==}
     engines: {node: '>=20'}
 
+  '@stambha/core@1.2.0':
+    resolution: {integrity: sha512-1Ga1hhztCFNfl/RguvE4ofax8QwMndXbVSJ2N32cxgoJhY1oynrynh6BeRkWqhgGjDgBTS+bybsUlivqZXkYaw==}
+    engines: {node: '>=20'}
+
+  '@stambha/plugins@1.2.0':
+    resolution: {integrity: sha512-23gIMBue0jk2jImhDLtIPvPX+0/94+LJlOQ1mPgo29/eaxnqkVbtmsZcIw4Bu7nKC32tnyWsfFtLo2ve0xQ2FA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@stambha/core': 1.2.0
+
   '@stambha/runtime@0.2.1':
     resolution: {integrity: sha512-sJG/O+gEgqta/lsLC8ShyJAM+wxht0vmB/kHCo4Ne9TM3ohjsm8B+w+ive5vgIuyySCLaZzjyuzE/r5BLo2h9g==}
+    engines: {node: '>=20'}
+
+  '@stambha/runtime@1.2.0':
+    resolution: {integrity: sha512-toSFqDE22KfakJu1hJgF1xG6inond5gU9mTP5PVB1rZ7YpysMQoWFy2qp4/6dFkOH1h48rqjgRXxqjYgF/t4uw==}
     engines: {node: '>=20'}
 
   '@stambha/vault@0.2.1':
@@ -541,6 +576,10 @@ packages:
 
   cron-parser@5.5.0:
     resolution: {integrity: sha512-oML4lKUXxizYswqmxuOCpgFS8BNUJpIu6k/2HVHyaL8Ynnf3wdf9tkns0yRdJLSIjkJ+b0DXHMZEHGpMwjnPww==}
+    engines: {node: '>=18'}
+
+  cron-parser@5.6.1:
+    resolution: {integrity: sha512-QBm4o1PwZiuY7KFbVvW7FLC8bozy7YWzv+Fz6KRS7sQghzcbDZCGxr/Bc5b6TQreAoSwuWVP491dIcK0THCX6A==}
     engines: {node: '>=18'}
 
   debug@4.4.3:
@@ -1135,11 +1174,22 @@ snapshots:
       '@stambha/runtime': 0.2.1
       cron-parser: 5.5.0
 
+  '@stambha/core@1.2.0':
+    dependencies:
+      '@stambha/runtime': 1.2.0
+      cron-parser: 5.6.1
+
+  '@stambha/plugins@1.2.0(@stambha/core@1.2.0)':
+    dependencies:
+      '@stambha/core': 1.2.0
+
   '@stambha/runtime@0.2.1': {}
 
-  '@stambha/vault@0.2.1(@stambha/core@0.2.1)':
+  '@stambha/runtime@1.2.0': {}
+
+  '@stambha/vault@0.2.1(@stambha/core@1.2.0)':
     dependencies:
-      '@stambha/core': 0.2.1
+      '@stambha/core': 1.2.0
 
   '@types/chai@5.2.3':
     dependencies:
@@ -1238,6 +1288,10 @@ snapshots:
   consola@3.4.2: {}
 
   cron-parser@5.5.0:
+    dependencies:
+      luxon: 3.7.2
+
+  cron-parser@5.6.1:
     dependencies:
       luxon: 3.7.2
 

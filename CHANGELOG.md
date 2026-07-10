@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Packages in this repo use **independent** versions — each `@stambha/*` extension may ship on its own cadence.
 
+## [Unreleased]
+
+### Added
+
+- **`@stambha/api` `0.1.0`** — HTTP API host: mountable router, CORS/body/request-id middlewares, `GET /health` + `GET /version`, `createApiServer` / `createApiPlugin`. Tier-split notes in `packages/api/docs/tier-split.md`.
+
 ## [0.2.2] - 2026-06-11
 
 First release from the [**Stambha-plugins**](https://github.com/Mivaya/Stambha-plugins) monorepo. These packages were extracted from the [Stambha core](https://github.com/mivaya/Stambha) repo at v0.2.2.
@@ -34,28 +40,11 @@ First release from the [**Stambha-plugins**](https://github.com/Mivaya/Stambha-p
 
 ### Peer dependencies
 
-Extensions declare peers on core packages (e.g. `@stambha/core@^0.2.Patch release focused on **migration ergonomics** (gates, prefixes, loader order) and repo hygiene.
-### Added
-- **`CommandOptions.gateNames`** — run registry gate pieces only on commands that list them
-- **`GateOptions.global`** — opt-in bot-wide gates (piece-framework precondition parity)
-- **`resolvePrefix`** on `attachStambhaClient` / gateway attach — async per-guild or dynamic prefix resolution
-- **Loader** loads `gates/` before `commands/` and validates `gateNames` after `loadPieces()`
-- **Docs:** [Why Stambha](https://mivaya.github.io/Stambha/guide/why-stambha), expanded migration guide, versioned docs snapshot (`0.2.2`)
-- **`publishConfig.access: public`** on all publishable `@stambha/*` packages
-- **`pnpm version:bump`** — fixed monorepo version bumps via `scripts/bump-versions.mjs`
-### Changed
-- **Official extensions** (`@stambha/cache`, `@stambha/metrics`, `@stambha/vault-sql`) publish from [**Stambha-plugins**](https://github.com/Mivaya/Stambha-plugins) only
-- **Releases** — tag-driven GitHub Releases → `publish-npm.yml` (replaces Changesets)
-- Registry iteration documented (`toArray()` / `values()` on registries)
-### Removed
-- `packages/cache`, `packages/metrics`, `packages/vault-sql` from the core monorepo
-- Changesets (`.changeset/`, `release.yml`, `@changesets/cli`)
-### Breaking changes
-- **Registry gates are no longer global by default.** Gate pieces run only when listed in `command.gateNames`, passed inline on the command, or marked `global: true` on the gate piece.1`, `@stambha/vault@^0.2.2`). Align peer ranges when core ships new majors.
+Extensions declare peers on core packages (e.g. `@stambha/core@^0.2.2`, `@stambha/vault@^0.2.2`). Align peer ranges when core ships new majors.
 
 ### Related
 
-- [ADR 003 — plugins monorepo](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)
+- [Plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)
 - [Stambha core CHANGELOG](https://github.com/mivaya/Stambha/blob/main/CHANGELOG.md) — framework releases (fixed versioning)
 
 [0.2.2]: https://github.com/Mivaya/Stambha-plugins/releases/tag/v0.2.2

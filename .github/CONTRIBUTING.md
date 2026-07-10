@@ -1,6 +1,6 @@
 # Contributing to Stambha-plugins
 
-Thank you for helping maintain official **optional** packages for [Stambha](https://github.com/mivaya/Stambha). This repo publishes `@stambha/cache`, `@stambha/metrics`, `@stambha/vault-sql`, and future extensions — each with **independent** semver.
+Thank you for helping maintain official **optional** packages for [Stambha](https://github.com/mivaya/Stambha). This repo publishes `@stambha/api`, `@stambha/cache`, `@stambha/metrics`, `@stambha/vault-sql`, and future extensions — each with **independent** semver.
 
 ## Ways to contribute
 
@@ -12,7 +12,7 @@ Thank you for helping maintain official **optional** packages for [Stambha](http
 
 1. Read the [README](../README.md) and the package README you are changing.
 2. Search [existing issues](https://github.com/Mivaya/Stambha-plugins/issues).
-3. For **new packages** (e.g. `@stambha/dashboard`), align with [ADR 003](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md) in the core repo.
+3. For **new packages** (e.g. `@stambha/i18n`), align with the [plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md) in the core repo.
 
 ## Development setup
 
@@ -52,7 +52,7 @@ Each package has its **own version**. Maintainers bump `packages/*/package.json`
 - **Peer dependencies** on `@stambha/*` core packages — never bundle core.
 - **No `@stambha/plugin-*` names** — use capability names (`dashboard`, `i18n`, `cron`).
 - Extensions integrate via `@stambha/plugins` (`definePlugin`) when they hook bot lifecycle.
-- Do not add discord.js or other client libraries unless the package is explicitly a shape/helper driver.
+- Do not add third-party Discord client libraries unless the package is explicitly a shape/helper driver.
 
 ## Core vs plugins
 

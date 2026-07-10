@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        For new packages or breaking API changes, describe the problem before opening a PR. See [ADR 003](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md).
+        For new packages or breaking API changes, describe the problem before opening a PR. See the [plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md).
 
   - type: textarea
     id: problem
