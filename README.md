@@ -10,6 +10,7 @@ Official **optional** packages for [Stambha](https://github.com/mivaya/Stambha) 
 |---------|-------------|
 | [`@stambha/cache`](./packages/cache) | Pluggable cache (memory; Redis drivers planned) |
 | [`@stambha/metrics`](./packages/metrics) | Prometheus metrics + HTTP scrape server |
+| [`@stambha/pagination`](./packages/pagination) | Embed pagination (prev / next / dismiss) via Signals |
 | [`@stambha/vault-sql`](./packages/vault-sql) | SQLite / PostgreSQL drivers for Vault |
 
 Future: `@stambha/dashboard`, `@stambha/i18n`, `@stambha/cron`, …
@@ -32,7 +33,7 @@ pnpm test
 
 ## Contributing
 
-See [`.github/CONTRIBUTING.md`](./.github/CONTRIBUTING.md).
+See [`.github/CONTRIBUTING.md`](./.github/CONTRIBUTING.md). Architecture and agent conventions: [`AGENT.md`](./AGENT.md).
 
 ## Releasing
 

@@ -15,6 +15,7 @@ body:
       options:
         - "@stambha/cache"
         - "@stambha/metrics"
+        - "@stambha/pagination"
         - "@stambha/vault-sql"
         - Other / new package
         - Unsure
@@ -33,7 +34,7 @@ body:
     id: core_version
     attributes:
       label: @stambha/core version (if applicable)
-      placeholder: e.g. 0.2.2
+      placeholder: e.g. 1.2.0
 
   - type: input
     id: node
