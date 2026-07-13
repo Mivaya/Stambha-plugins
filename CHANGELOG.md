@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Packages in this repo use **independent** versions — each `@stambha/`* extension may ship on its own cadence. This release aligns all published packages at **1.0.0**.
 
+## [Unreleased]
+
+### Added
+
+- **`@stambha/api`** — Discord OAuth (PKCE + state), server-side sessions, CSRF, auth rate limit, `GET /guilds` (manageable ∩ bot), channels/roles helpers, Vault guild settings + schema routes, `listenWhen` / `STAMBHA_API_LISTEN` / `automaticallyListen` deploy controls, optional `@stambha/vault` peer.
+
 ## [1.0.0](https://github.com/Mivaya/Stambha-plugins/releases/tag/v1.0.0) - 2026-07-13
 
 Stable **1.0.0** line for every package in this monorepo. Peers target Stambha core `^1.2.0` where applicable.

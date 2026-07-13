@@ -37,5 +37,7 @@ export function createApiRequest(
     headers: raw.headers,
     requestId: options.requestId ?? randomUUID(),
     body: undefined,
+    session: null,
+    auth: null,
   };
 }

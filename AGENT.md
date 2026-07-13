@@ -41,7 +41,8 @@ Public docs and package READMEs must not use internal ticket IDs or other framew
 
 - `createApiServer` / `createApiPlugin`
 - Built-ins: CORS (fail-fast on `*` + credentials), JSON body limit, `X-Request-Id`, `GET /health`, `GET /version`
-- Later: OAuth, sessions, Vault-backed config routes
+- Optional Discord OAuth (PKCE + state), server-side sessions, CSRF, guild list ∩ bot, Vault settings routes
+- Listen control: `automaticallyListen`, `listenWhen`, `STAMBHA_API_LISTEN=0` — mount only on the bot worker
 
 See [`packages/api/README.md`](./packages/api/README.md) and [`packages/api/docs/tier-split.md`](./packages/api/docs/tier-split.md).
 

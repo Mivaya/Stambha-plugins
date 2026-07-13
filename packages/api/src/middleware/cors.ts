@@ -29,7 +29,10 @@ export function createCorsMiddleware(options: {
         }
       }
 
-      response.header("access-control-allow-headers", "Authorization, Content-Type, X-Request-Id");
+      response.header(
+        "access-control-allow-headers",
+        "Authorization, Content-Type, X-Request-Id, X-CSRF-Token",
+      );
       response.header(
         "access-control-allow-methods",
         "GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD",
