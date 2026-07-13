@@ -26,7 +26,7 @@ Packages in this repo use **independent** versions — each `@stambha/*` extensi
 
 ## [0.2.1] - 2026-06-11
 
-First release from the [**Stambha-plugins**](https://github.com/Mivaya/Stambha-plugins) monorepo. These packages were extracted from the [Stambha core](https://github.com/mivaya/Stambha) repo at v0.2.1.
+First release from the [**Stambha-plugins**](https://github.com/Mivaya/Stambha-plugins) monorepo. These packages were extracted from the [Stambha core](https://github.com/mivaya/Stambha) repo at v0.2.2.
 
 ### Added
 
@@ -57,4 +57,4 @@ Extensions declare peers on core packages (e.g. `@stambha/core@^1.2.0`, `@stambh
 
 - [Stambha core CHANGELOG](https://github.com/mivaya/Stambha/blob/main/CHANGELOG.md) — framework releases (fixed versioning)
 
-[0.2.1]: https://github.com/Mivaya/Stambha-plugins/releases/tag/v0.2.1
+[0.2.2]: https://github.com/Mivaya/Stambha-plugins/releases/tag/v0.2.2
