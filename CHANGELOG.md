@@ -11,20 +11,9 @@ Packages in this repo use **independent** versions — each `@stambha/*` extensi
 
 ### Added
 
-- **`@stambha/pagination` `1.0.0`** — embed pagination with prev / next / dismiss on Signals (`stambha:pagination:…`).
-- **`AGENT.md`** — agent & architecture guide (aligned with core Stambha style).
+- **`@stambha/api` `0.1.0`** — HTTP API host: mountable router, CORS/body/request-id middlewares, `GET /health` + `GET /version`, `createApiServer` / `createApiPlugin`. Tier-split notes in `packages/api/docs/tier-split.md`.
 
-### Changed
-
-- **`.github/CONTRIBUTING.md`** — expanded to match core contributing structure (branching, commits, testing policy, releases).
-
-
-- Peer / dev dependencies aligned to Stambha **1.2.0**:
-  - `@stambha/metrics` → `@stambha/core@^1.2.0`
-  - `@stambha/vault-sql` → `@stambha/vault@^1.2.0`
-- `@stambha/cache` has no `@stambha/*` peers (unchanged).
-
-## [0.2.1] - 2026-06-11
+## [0.2.2] - 2026-06-11
 
 First release from the [**Stambha-plugins**](https://github.com/Mivaya/Stambha-plugins) monorepo. These packages were extracted from the [Stambha core](https://github.com/mivaya/Stambha) repo at v0.2.2.
 
@@ -51,10 +40,11 @@ First release from the [**Stambha-plugins**](https://github.com/Mivaya/Stambha-p
 
 ### Peer dependencies
 
-Extensions declare peers on core packages (e.g. `@stambha/core@^1.2.0`, `@stambha/vault@^1.2.0`). Align peer ranges when core ships new majors.
+Extensions declare peers on core packages (e.g. `@stambha/core@^0.2.2`, `@stambha/vault@^0.2.2`). Align peer ranges when core ships new majors.
 
 ### Related
 
+- [Plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)
 - [Stambha core CHANGELOG](https://github.com/mivaya/Stambha/blob/main/CHANGELOG.md) — framework releases (fixed versioning)
 
 [0.2.2]: https://github.com/Mivaya/Stambha-plugins/releases/tag/v0.2.2

@@ -8,12 +8,13 @@ Official **optional** packages for [Stambha](https://github.com/mivaya/Stambha) 
 
 | Package | Description |
 |---------|-------------|
+| [`@stambha/api`](./packages/api) | HTTP API host for user-built admin frontends |
 | [`@stambha/cache`](./packages/cache) | Pluggable cache (memory; Redis drivers planned) |
 | [`@stambha/metrics`](./packages/metrics) | Prometheus metrics + HTTP scrape server |
 | [`@stambha/pagination`](./packages/pagination) | Embed pagination (prev / next / dismiss) via Signals |
 | [`@stambha/vault-sql`](./packages/vault-sql) | SQLite / PostgreSQL drivers for Vault |
 
-Future: `@stambha/dashboard`, `@stambha/i18n`, `@stambha/cron`, …
+Future: `@stambha/i18n`, `@stambha/cron`, Redis drivers, …
 
 ## Install
 
@@ -50,4 +51,4 @@ Report vulnerabilities privately — [SECURITY.md](./SECURITY.md).
 ## Related
 
 - [Stambha core](https://github.com/mivaya/Stambha) — fixed-version monorepo (`@stambha/core`, `gateway`, `loader`, …)
-- [ADR 003 — plugins monorepo](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)
+- [Plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)

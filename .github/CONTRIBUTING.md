@@ -1,6 +1,6 @@
 # Contributing to Stambha-plugins
 
-Thank you for your interest in contributing! This repository publishes **optional** `@stambha/*` packages for the [Stambha](https://github.com/mivaya/Stambha) Discord bot framework. All contributions are welcome.
+Thank you for helping maintain official **optional** packages for [Stambha](https://github.com/mivaya/Stambha). This repo publishes `@stambha/api`, `@stambha/cache`, `@stambha/metrics`, `@stambha/vault-sql`, and future extensions — each with **independent** semver.
 
 ## Ways to Contribute
 
@@ -11,11 +11,9 @@ Thank you for your interest in contributing! This repository publishes **optiona
 
 ### Good first contributions
 
-- Test coverage for edge cases in an existing package
-- Documentation fixes and README examples (native stack only)
-- Small bug fixes in `@stambha/cache`, `@stambha/metrics`, `@stambha/pagination`, or `@stambha/vault-sql`
-
-## Getting Started
+1. Read the [README](../README.md) and the package README you are changing.
+2. Search [existing issues](https://github.com/Mivaya/Stambha-plugins/issues).
+3. For **new packages** (e.g. `@stambha/i18n`), align with the [plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md) in the core repo.
 
 ### Prerequisites
 
@@ -103,11 +101,10 @@ Core pipeline and native attach details: [Stambha AGENT.md](https://github.com/m
 
 ## Package Rules
 
-- **Peer dependencies** on `@stambha/*` core packages — never bundle core
-- **No `@stambha/plugin-*` names** — use capability names (`dashboard`, `i18n`, `cron`, `pagination`)
-- Extensions integrate via core `@stambha/plugins` (`definePlugin`) when they hook bot lifecycle
-- Do not add discord.js or other client libraries unless the package is explicitly a shape/helper driver (prefer native stack only)
-- Prefer peers aligned with current core on npm (e.g. `@stambha/core@^1.2.0`)
+- **Peer dependencies** on `@stambha/*` core packages — never bundle core.
+- **No `@stambha/plugin-*` names** — use capability names (`dashboard`, `i18n`, `cron`).
+- Extensions integrate via `@stambha/plugins` (`definePlugin`) when they hook bot lifecycle.
+- Do not add third-party Discord client libraries unless the package is explicitly a shape/helper driver.
 
 ## Core vs Plugins
 
