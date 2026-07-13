@@ -7,7 +7,7 @@
 | Latest on npm | Yes |
 | Unreleased / archived | No |
 
-Extension packages (`@stambha/cache`, `@stambha/metrics`, `@stambha/vault-sql`, …) are versioned **independently** — install the latest patch for the package you use.
+Extension packages (`@stambha/cache`, `@stambha/metrics`, `@stambha/pagination`, `@stambha/vault-sql`, …) are versioned **independently** — install the latest patch for the package you use.
 
 ## Reporting a vulnerability
 
