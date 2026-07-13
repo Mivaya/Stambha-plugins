@@ -11,6 +11,7 @@ Official **optional** packages for [Stambha](https://github.com/mivaya/Stambha) 
 | [`@stambha/api`](./packages/api) | HTTP API host for user-built admin frontends |
 | [`@stambha/cache`](./packages/cache) | Pluggable cache (memory; Redis drivers planned) |
 | [`@stambha/metrics`](./packages/metrics) | Prometheus metrics + HTTP scrape server |
+| [`@stambha/pagination`](./packages/pagination) | Embed pagination (prev / next / dismiss) via Signals |
 | [`@stambha/vault-sql`](./packages/vault-sql) | SQLite / PostgreSQL drivers for Vault |
 
 Future: `@stambha/i18n`, `@stambha/cron`, Redis drivers, …

@@ -61,8 +61,26 @@ importers:
         version: 15.1.3
     devDependencies:
       '@stambha/core':
-        specifier: ^0.2.1
-        version: 0.2.1
+        specifier: ^1.2.0
+        version: 1.2.0
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.19.20
+      tsup:
+        specifier: ^8.3.6
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.5
+        version: 3.2.6(@types/node@22.19.20)
+
+  packages/pagination:
+    devDependencies:
+      '@stambha/core':
+        specifier: ^1.2.0
+        version: 1.2.0
       '@types/node':
         specifier: ^22.13.4
         version: 22.19.20
@@ -454,8 +472,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@stambha/core@0.2.1':
-    resolution: {integrity: sha512-LZtpq3feP9Nf37YUVcJ2N5qsc+FEtlcsVhA5GqsRVfntcHD3iQ3Da28LALfHAr5OLwHGDVAJLvoh30NjU8iqHg==}
+  '@stambha/core@1.2.0':
+    resolution: {integrity: sha512-1Ga1hhztCFNfl/RguvE4ofax8QwMndXbVSJ2N32cxgoJhY1oynrynh6BeRkWqhgGjDgBTS+bybsUlivqZXkYaw==}
     engines: {node: '>=20'}
 
   '@stambha/core@1.2.0':
@@ -480,7 +498,7 @@ packages:
     resolution: {integrity: sha512-/EaYbtL2FPJ31tubSY/1ulRpq+KzAGmGUyMWhzyKlSY9i/GYAkx19N/5tjgIg3XQ0MJ68z8BigDqy2l5lJSYXw==}
     engines: {node: '>=20'}
     peerDependencies:
-      '@stambha/core': 0.2.1
+      '@stambha/core': 1.2.0
 
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
@@ -574,8 +592,8 @@ packages:
     resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
-  cron-parser@5.5.0:
-    resolution: {integrity: sha512-oML4lKUXxizYswqmxuOCpgFS8BNUJpIu6k/2HVHyaL8Ynnf3wdf9tkns0yRdJLSIjkJ+b0DXHMZEHGpMwjnPww==}
+  cron-parser@5.6.1:
+    resolution: {integrity: sha512-QBm4o1PwZiuY7KFbVvW7FLC8bozy7YWzv+Fz6KRS7sQghzcbDZCGxr/Bc5b6TQreAoSwuWVP491dIcK0THCX6A==}
     engines: {node: '>=18'}
 
   cron-parser@5.6.1:
@@ -1169,10 +1187,10 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.61.1':
     optional: true
 
-  '@stambha/core@0.2.1':
+  '@stambha/core@1.2.0':
     dependencies:
-      '@stambha/runtime': 0.2.1
-      cron-parser: 5.5.0
+      '@stambha/runtime': 1.2.0
+      cron-parser: 5.6.1
 
   '@stambha/core@1.2.0':
     dependencies:
@@ -1287,7 +1305,7 @@ snapshots:
 
   consola@3.4.2: {}
 
-  cron-parser@5.5.0:
+  cron-parser@5.6.1:
     dependencies:
       luxon: 3.7.2
 

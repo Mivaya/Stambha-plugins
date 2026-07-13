@@ -34,9 +34,9 @@ First release from the [**Stambha-plugins**](https://github.com/Mivaya/Stambha-p
 
 | Package | Version |
 |---------|---------|
-| `@stambha/cache` | 0.2.2 |
-| `@stambha/metrics` | 0.2.2 |
-| `@stambha/vault-sql` | 0.2.2 |
+| `@stambha/cache` | 1.0.0 |
+| `@stambha/metrics` | 1.0.0 |
+| `@stambha/vault-sql` | 1.0.0 |
 
 ### Peer dependencies
 

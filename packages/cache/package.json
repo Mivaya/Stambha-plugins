@@ -1,6 +1,6 @@
 {
   "name": "@stambha/cache",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "Pluggable cache layer for Stambha gateway and bot workers",
   "author": "Mivaya",
   "license": "MIT",

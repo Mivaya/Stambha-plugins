@@ -1,24 +1,25 @@
 {
-  "name": "@stambha/vault-sql",
+  "name": "@stambha/pagination",
   "version": "1.0.0",
-  "description": "SQL drivers for Stambha Vault — SQLite and PostgreSQL backends",
+  "description": "Embed pagination with prev/next/dismiss buttons for Stambha Signals",
   "author": "Mivaya",
   "license": "MIT",
-  "homepage": "https://github.com/Mivaya/Stambha-plugins/tree/main/packages/vault-sql#readme",
+  "homepage": "https://github.com/Mivaya/Stambha-plugins/tree/main/packages/pagination#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mivaya/Stambha-plugins.git",
-    "directory": "packages/vault-sql"
+    "directory": "packages/pagination"
   },
   "bugs": {
     "url": "https://github.com/Mivaya/Stambha/issues"
   },
   "keywords": [
     "discord",
+    "discord-bot",
     "stambha",
-    "vault",
-    "sqlite",
-    "postgresql"
+    "pagination",
+    "signals",
+    "embeds"
   ],
   "type": "module",
   "main": "./dist/index.cjs",
@@ -41,20 +42,19 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "@stambha/vault": "^1.2.0"
-  },
-  "dependencies": {
-    "pg": "^8.13.3"
+    "@stambha/core": "^1.2.0"
   },
   "devDependencies": {
-    "@stambha/vault": "^1.2.0",
+    "@stambha/core": "^1.2.0",
     "@types/node": "^22.13.4",
-    "@types/pg": "^8.11.11",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3",
     "vitest": "^3.0.5"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
-    "node": ">=22.5.0"
+    "node": ">=20"
   }
 }
