@@ -30,6 +30,7 @@ Official **optional** packages for [Stambha](https://github.com/mivaya/Stambha).
 | `@stambha/api` | HTTP API host for user-built admin frontends |
 | `@stambha/cache` | Pluggable cache |
 | `@stambha/metrics` | Prometheus metrics |
+| `@stambha/pagination` | Embed pagination via Signals |
 | `@stambha/vault-sql` | SQL Vault drivers |
 
 Public docs and package READMEs must not use internal ticket IDs or other frameworks’ names.
