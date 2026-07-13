@@ -76,4 +76,3 @@ Report vulnerabilities privately — [SECURITY.md](SECURITY.md).
 ## Related
 
 - [Stambha core](https://github.com/mivaya/Stambha) — fixed-version monorepo (`@stambha/core`, `gateway`, `loader`, …)
-- [Plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)
