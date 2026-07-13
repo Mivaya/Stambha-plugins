@@ -13,7 +13,6 @@ Thank you for helping maintain official **optional** packages for [Stambha](http
 
 1. Read the [README](../README.md) and the package README you are changing.
 2. Search [existing issues](https://github.com/Mivaya/Stambha-plugins/issues).
-3. For **new packages** (e.g. `@stambha/i18n`), align with the [plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md) in the core repo.
 
 ### Prerequisites
 
@@ -147,15 +146,15 @@ Full detail: [PUBLISHING.md](./PUBLISHING.md).
 
 ```bash
 # 1. Merge feature PRs to main
-# 2. Bump selected packages + edit CHANGELOG.md
-pnpm version:bump 0.1.0 pagination          # one package
-pnpm version:bump 0.2.3 cache metrics       # several
-git add -A && git commit -m "chore: release pagination 0.1.0"
+# 2. Bump selected package(s) + edit CHANGELOG.md
+pnpm version:bump 1.1.0 api
+git add -A && git commit -m "chore: release @stambha/api@1.1.0"
 
-# 3. Tag and push (example)
-git tag vpagination-0.1.0 && git push origin vpagination-0.1.0
+# 3. Tag and push
+git tag '@stambha/api@1.1.0' && git push origin '@stambha/api@1.1.0'
 
-# 4. Create a published GitHub Release for that tag → npm publish automatically
+# 4. Create a published GitHub Release
+#    Tag + title: @stambha/api@1.1.0  →  npm publish for that package only
 ```
 
 - **Stable** — normal release → npm dist-tag `latest`

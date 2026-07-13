@@ -6,32 +6,49 @@ The [**Stambha**](https://github.com/mivaya/Stambha) core repo uses **fixed** ve
 
 ---
 
+## Tag + release title
+
+| | Format | Example |
+|---|--------|---------|
+| **Git tag** | `@stambha/<package>@<semver>` | `@stambha/api@1.1.0` |
+| **Release title** | Same as the tag | `@stambha/api@1.1.0` |
+| **Release notes heading** | `# @stambha/<package>@<semver>` | `# @stambha/api@1.1.0` |
+
+`<package>` is the folder name under `packages/` (`api`, `cache`, `metrics`, `pagination`, `vault-sql`).
+
+Do **not** use monorepo-wide tags like `v1.0.0` for new releases (legacy tags may still exist). Prefer independent package tags so npm publish stays scoped to the package that changed.
+
+---
+
 ## Maintainer release flow
 
 ```text
 Merge PRs to main
        ↓
-Bump versions (+ CHANGELOG):
+Bump the package (+ CHANGELOG Unreleased → version section)
+       ↓
+git tag '@stambha/<pkg>@<semver>' && git push origin '@stambha/<pkg>@<semver>'
+       ↓
+GitHub Release (title = tag)  →  publish-npm.yml  →  npm (that package only)
+```
 
 ```bash
-pnpm version:bump 0.2.2              # all packages
-pnpm version:bump 0.2.2 cache metrics # only selected packages
-```
-       ↓
-git tag v<package>-<semver>  (e.g. vcache-0.2.2) && git push --tags
-       ↓
-GitHub Release (published)  →  publish-npm.yml  →  npm
+# Example: ship @stambha/api 1.1.0
+pnpm version:bump 1.1.0 api
+# edit CHANGELOG.md
+git add -A && git commit -m "chore: release @stambha/api@1.1.0"
+git tag '@stambha/api@1.1.0'
+git push origin main '@stambha/api@1.1.0'
+# Create a *published* GitHub Release for that tag (title: @stambha/api@1.1.0)
 ```
 
 Workflow: [`.github/workflows/publish-npm.yml`](./workflows/publish-npm.yml)
 
-`pnpm -r publish` uploads **every** package under `packages/*` at its current `package.json` version. Only bump packages you intend to ship; unchanged versions will no-op or fail if already on npm.
+On a matching `@stambha/<pkg>@<semver>` release tag, CI publishes **only** that package (version in `package.json` must match the tag). `workflow_dispatch` still dry-runs / publishes all packages under `packages/*` when you opt in.
 
-### Tag + GitHub Release
+### Dist-tags
 
-Use one release per publish batch, or one per package — ensure `package.json` versions match what you want on npm before publishing.
-
-- **Stable** → npm dist-tag `latest`
+- **Stable** release → npm dist-tag `latest`
 - **Pre-release** (GitHub checkbox) → npm dist-tag `beta`
 
 ### Manual publish
@@ -49,7 +66,7 @@ NPM_TOKEN=... pnpm publish:npm
 ## Contributor workflow
 
 1. Change code — **no changeset file**.
-2. Do not bump versions in PRs unless maintainer asks.
+2. Do not bump versions in PRs unless a maintainer asks.
 3. Update package README for user-facing changes.
 
 ---
@@ -81,4 +98,5 @@ Every package needs `"publishConfig": { "access": "public" }`.
 | 403 Forbidden | Token lacks `@stambha` scope |
 | E404 on publish | `publishConfig.access: public` + valid `NPM_TOKEN` |
 | Version already exists | Bump semver in `package.json` |
+| Tag / package.json mismatch | Tag must equal `@stambha/<dir>@` + `package.json` `version` |
 | Peer dependency warnings | Align `peerDependencies` with latest core on npm |
