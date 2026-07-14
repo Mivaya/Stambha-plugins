@@ -1,9 +1,12 @@
 import type { ServerResponse } from "node:http";
+import { serializeCookie, serializeExpiredCookie } from "../auth/cookies.js";
+import type { AuthCookieOptions } from "../auth/types.js";
 import type { ApiResponse } from "../types.js";
 
 export function createApiResponse(raw: ServerResponse): ApiResponse {
   let statusCode = 200;
   const headers = new Map<string, string>();
+  const cookies: string[] = [];
   let ended = false;
 
   const api: ApiResponse = {
@@ -18,6 +21,20 @@ export function createApiResponse(raw: ServerResponse): ApiResponse {
     header(name: string, value: string) {
       headers.set(name.toLowerCase(), value);
       return api;
+    },
+    setCookie(name: string, value: string, options: Required<AuthCookieOptions>) {
+      cookies.push(serializeCookie(name, value, options));
+      return api;
+    },
+    clearCookie(name: string, options: Required<AuthCookieOptions>) {
+      cookies.push(serializeExpiredCookie(name, options));
+      return api;
+    },
+    redirect(url: string, status = 302) {
+      if (ended || raw.writableEnded) return;
+      statusCode = status;
+      headers.set("location", url);
+      flush(undefined);
     },
     json(data: unknown) {
       if (ended || raw.writableEnded) return;
@@ -42,6 +59,9 @@ export function createApiResponse(raw: ServerResponse): ApiResponse {
 
   function flush(body: string | undefined): void {
     ended = true;
+    for (const cookie of cookies) {
+      raw.appendHeader("Set-Cookie", cookie);
+    }
     const outHeaders: Record<string, string> = {};
     for (const [k, v] of headers) outHeaders[k] = v;
     raw.writeHead(statusCode, outHeaders);

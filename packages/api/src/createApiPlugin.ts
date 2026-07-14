@@ -1,4 +1,5 @@
 import { definePlugin } from "@stambha/plugins";
+import { shouldListen } from "./auth/createAuthRuntime.js";
 import { type ApiServer, createApiServer } from "./createApiServer.js";
 import type { ApiServerHandle, ApiServerOptions } from "./types.js";
 
@@ -16,14 +17,9 @@ export interface ApiPluginHandle {
 /**
  * Stambha plugin that starts the HTTP API on `postStart` and exposes a close handle.
  *
- * ```ts
- * import { attachPlugins } from "@stambha/plugins";
- * import { createApiPlugin } from "@stambha/api";
- *
- * const api = createApiPlugin({ listenOptions: { port: 4000 } });
- * await attachPlugins(client, { plugins: [api.plugin] });
- * // after client.start() — server is listening
- * ```
+ * For tier-split / multi-process: attach this plugin only in the **bot** entrypoint.
+ * Use `automaticallyListen: false` then call `server.listen()` manually when ready —
+ * prefer process isolation over “shard 0 only” listen hacks.
  */
 export function createApiPlugin(options: ApiPluginOptions = {}): {
   plugin: ReturnType<typeof definePlugin>;
@@ -40,7 +36,7 @@ export function createApiPlugin(options: ApiPluginOptions = {}): {
       });
 
       let listenHandle: ApiServerHandle | null = null;
-      if (automaticallyListen) {
+      if (automaticallyListen && shouldListen(options, client)) {
         listenHandle = await server.listen();
       }
 

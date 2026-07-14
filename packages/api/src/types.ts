@@ -1,9 +1,15 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { StambhaClient } from "@stambha/core";
+import type { RestPort, StambhaClient } from "@stambha/core";
+import type {
+  ApiDashboardOptions,
+  ApiSession,
+  AuthCookieOptions,
+  AuthRuntime,
+} from "./auth/types.js";
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "HEAD";
 
-export interface ApiServerOptions {
+export interface ApiServerOptions extends ApiDashboardOptions {
   /** URL path prefix for all routes (default `""`). Leading/trailing slashes normalized. */
   prefix?: string;
   /** CORS allowed origin(s). Use concrete origins when {@link credentials} is true. */
@@ -38,12 +44,19 @@ export interface ApiRequest {
   readonly headers: IncomingMessage["headers"];
   requestId: string;
   body: unknown;
+  /** Populated by session middleware when auth is enabled. */
+  session: ApiSession | null;
+  /** Auth runtime when dashboard auth is configured. */
+  auth: AuthRuntime | null;
 }
 
 export interface ApiResponse {
   readonly raw: ServerResponse;
   status(code: number): ApiResponse;
   header(name: string, value: string): ApiResponse;
+  setCookie(name: string, value: string, options: Required<AuthCookieOptions>): ApiResponse;
+  clearCookie(name: string, options: Required<AuthCookieOptions>): ApiResponse;
+  redirect(url: string, status?: number): void;
   json(data: unknown): void;
   text(data: string, contentType?: string): void;
   end(): void;
@@ -80,3 +93,5 @@ export interface ApiServerHandle {
   readonly host: string;
   close(): Promise<void>;
 }
+
+export type { RestPort };

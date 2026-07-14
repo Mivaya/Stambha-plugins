@@ -8,7 +8,7 @@ Official extensions for [Stambha](https://github.com/mivaya/Stambha) — publish
 [![Node](https://img.shields.io/node/v/@stambha/cache?color=339933&logo=node.js)](https://nodejs.org)
 [![npm](https://img.shields.io/npm/v/@stambha/cache?color=cb3837&logo=npm)](https://www.npmjs.com/package/@stambha/cache)
 
-Current release line: **1.0.0** (peers on Stambha core **^1.2.0** where applicable).
+Peers on Stambha core **^1.2.0** where applicable. Package versions are independent (see table).
 
 ---
 
@@ -18,7 +18,7 @@ Published under [@stambha on npm](https://www.npmjs.com/org/stambha).
 
 | Package | Version | Role |
 |---------|---------|------|
-| [`@stambha/api`](packages/api) | 1.0.0 | HTTP API host for user-built admin frontends |
+| [`@stambha/api`](packages/api) | 1.1.0 | HTTP API host for user-built admin frontends |
 | [`@stambha/cache`](packages/cache) | 1.0.0 | Pluggable cache (memory; Redis drivers planned) |
 | [`@stambha/metrics`](packages/metrics) | 1.0.0 | Prometheus metrics + HTTP scrape server |
 | [`@stambha/pagination`](packages/pagination) | 1.0.0 | Embed pagination (prev / next / dismiss) via Signals |
@@ -76,4 +76,3 @@ Report vulnerabilities privately — [SECURITY.md](SECURITY.md).
 ## Related
 
 - [Stambha core](https://github.com/mivaya/Stambha) — fixed-version monorepo (`@stambha/core`, `gateway`, `loader`, …)
-- [Plugins monorepo decision](https://github.com/mivaya/Stambha/blob/main/docs/internal/adr/003-plugins-monorepo.md)

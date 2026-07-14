@@ -1,10 +1,8 @@
 # Running `@stambha/api` in a tier-split deployment
 
-Stambha can run as a **monolith** or as **split** workers (gateway / REST / bot). The HTTP API should not be started on every gateway shard.
+Stambha can run as a **monolith** or as **split** workers (gateway / REST / bot). The HTTP API should not be started on every gateway process.
 
 ## Monolith
-
-Start the API in the same process as the bot:
 
 ```ts
 import { createApiPlugin } from "@stambha/api";
@@ -15,33 +13,51 @@ await attachPlugins(client, { plugins: [api.plugin] });
 await client.start();
 ```
 
-Put TLS and public exposure behind a reverse proxy (Caddy, nginx, Traefik). Set `trustProxy: true` when the proxy forwards `X-Forwarded-Proto` / `X-Forwarded-For`.
+Put TLS behind a reverse proxy. Set `trustProxy: true` when the proxy forwards `X-Forwarded-*`.
 
 ## Split tier
 
 | Worker | Run `@stambha/api`? |
 |--------|---------------------|
-| Gateway shards | **No** — avoid N duplicate listeners and stale cache |
-| REST worker | Optional — if the API only needs outbound Discord REST |
-| Bot / command worker | **Yes (recommended)** — has `StambhaClient`, Vault, and piece registries |
+| Gateway processes | **No** — avoid duplicate listeners and wrong process role |
+| REST worker | Optional — REST-only panels; no Vault |
+| Bot / command worker | **Yes (recommended)** — client, Vault, registries |
 
-Wire the plugin only in the bot worker entrypoint. Health (`GET /health`) reports `tier` and `workerRole` when a client is attached.
+Wire the plugin **only** in the bot worker entrypoint. Do not rely on “start on shard 0” inside every gateway process.
+
+### Manual listen
+
+```ts
+const api = createApiPlugin({
+  automaticallyListen: false,
+  listenWhen: () => process.env.WORKER === "bot",
+});
+await attachPlugins(client, { plugins: [api.plugin] });
+await client.start();
+await api.getHandle()?.server.listen();
+```
+
+`STAMBHA_API_LISTEN=0` skips binding in any process.
+
+### Multi-replica bot workers
+
+If more than one process serves the API:
+
+- Put a load balancer in front, **or** bind the port on only one replica
+- Replace `MemorySessionStore` with a shared `SessionStore` (e.g. Redis) so OAuth sessions stick
 
 ## CORS and credentials
-
-Use an explicit frontend origin in production:
 
 ```ts
 createApiServer({
   origin: "https://panel.example.com",
-  credentials: true, // for cookie-based sessions when enabled
+  credentials: true,
+  auth: { /* … */ },
 });
 ```
 
-`origin: "*"` with `credentials: true` throws at startup.
+`origin: "*"` with auth or credentials throws at startup.
 
-## Roadmap
+## Auth + Vault
 
-Later releases of this package will add Discord OAuth with server-side sessions, Vault-backed config routes, and richer helpers for split workers.
-
-Until then, register your own routes via `createApiServer({ routes: […] })`.
+OAuth sessions and `/guilds/:id/settings` belong on the bot worker (Vault + `restPort`). See the package README for routes.

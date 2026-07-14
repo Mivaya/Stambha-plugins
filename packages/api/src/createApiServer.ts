@@ -1,14 +1,22 @@
 import { randomUUID } from "node:crypto";
 import { createServer, type Server } from "node:http";
+import { createAuthRuntime, resolveRestPort, shouldListen } from "./auth/createAuthRuntime.js";
+import type { AuthRuntime } from "./auth/types.js";
 import { createApiRequest } from "./http/ApiRequest.js";
 import { createApiResponse } from "./http/ApiResponse.js";
 import { createBodyMiddleware } from "./middleware/body.js";
 import { createCorsMiddleware } from "./middleware/cors.js";
 import { MiddlewareStore } from "./middleware/MiddlewareStore.js";
+import { createRateLimitMiddleware } from "./middleware/rateLimit.js";
 import { createRequestIdMiddleware } from "./middleware/requestId.js";
+import { createCsrfMiddleware, createRequireAuthMiddleware } from "./middleware/requireAuth.js";
+import { createSessionMiddleware } from "./middleware/session.js";
 import { RouteStore } from "./route/RouteStore.js";
 import { joinPrefix } from "./router/Router.js";
+import { createAuthRoutes } from "./routes/auth.js";
+import { createGuildRoutes } from "./routes/guilds.js";
 import { createHealthRoute } from "./routes/health.js";
+import { createSettingsRoutes } from "./routes/settings.js";
 import { createVersionRoute } from "./routes/version.js";
 import type { ApiServerHandle, ApiServerOptions } from "./types.js";
 import { resolveApiServerOptions } from "./validateOptions.js";
@@ -17,6 +25,7 @@ export interface ApiServer {
   readonly routes: RouteStore;
   readonly middlewares: MiddlewareStore;
   readonly options: ReturnType<typeof resolveApiServerOptions>;
+  readonly auth: AuthRuntime | null;
   listen(): Promise<ApiServerHandle>;
   /** Handle a single request (also used by the Node HTTP server). */
   handle(
@@ -27,10 +36,18 @@ export interface ApiServer {
 
 /**
  * Create a mountable HTTP API server for user-built admin frontends.
- * Built-in routes: `GET /health`, `GET /version` (under {@link ApiServerOptions.prefix}).
+ * Built-in routes: `GET /health`, `GET /version`.
+ * With `auth`: OAuth, sessions, guild list, optional Vault settings.
  */
 export function createApiServer(options: ApiServerOptions = {}): ApiServer {
-  const resolved = resolveApiServerOptions(options);
+  const withAuthDefaults: ApiServerOptions =
+    options.auth && options.credentials === undefined ? { ...options, credentials: true } : options;
+  const resolved = resolveApiServerOptions(withAuthDefaults);
+  const auth = createAuthRuntime(withAuthDefaults);
+  if (auth) {
+    auth.restPort = resolveRestPort(auth, withAuthDefaults.client);
+  }
+
   const routes = new RouteStore();
   const middlewares = new MiddlewareStore();
 
@@ -43,26 +60,46 @@ export function createApiServer(options: ApiServerOptions = {}): ApiServer {
   );
   middlewares.register(createBodyMiddleware({ maximumBodyLength: resolved.maximumBodyLength }));
 
-  for (const mw of options.middlewares ?? []) {
+  if (auth) {
+    if (resolved.origins.includes("*")) {
+      throw new Error('@stambha/api: auth requires explicit origin(s); cannot use origin "*".');
+    }
+    middlewares.register(createRateLimitMiddleware({ pathIncludes: "/auth", limit: 40 }));
+    middlewares.register(createSessionMiddleware(auth));
+    middlewares.register(createCsrfMiddleware());
+    middlewares.register(createRequireAuthMiddleware());
+  }
+
+  for (const mw of withAuthDefaults.middlewares ?? []) {
     middlewares.register(mw);
   }
 
-  const health = createHealthRoute(options.client);
-  const version = createVersionRoute();
-  routes.register({
-    ...health,
-    path: joinPrefix(resolved.prefix, health.path),
-  });
-  routes.register({
-    ...version,
-    path: joinPrefix(resolved.prefix, version.path),
-  });
-
-  for (const route of options.routes ?? []) {
+  const register = (route: Parameters<RouteStore["register"]>[0]) => {
     routes.register({
       ...route,
       path: joinPrefix(resolved.prefix, route.path),
     });
+  };
+
+  register(createHealthRoute(withAuthDefaults.client));
+  register(createVersionRoute());
+
+  if (auth) {
+    for (const route of createAuthRoutes(auth)) register(route);
+    for (const route of createGuildRoutes(auth, () =>
+      resolveRestPort(auth, withAuthDefaults.client),
+    )) {
+      register(route);
+    }
+    for (const route of createSettingsRoutes(auth, () =>
+      resolveRestPort(auth, withAuthDefaults.client),
+    )) {
+      register(route);
+    }
+  }
+
+  for (const route of withAuthDefaults.routes ?? []) {
+    register(route);
   }
 
   const handle: ApiServer["handle"] = async (rawReq, rawRes) => {
@@ -88,7 +125,6 @@ export function createApiServer(options: ApiServerOptions = {}): ApiServer {
           return;
         }
 
-        // Bind matched params onto request
         Object.assign(request, { params: match.params });
         await match.handler(request, response);
       });
@@ -99,7 +135,6 @@ export function createApiServer(options: ApiServerOptions = {}): ApiServer {
           requestId,
         });
       }
-      // Avoid swallowing — callers/tests can observe via status; Node server keeps running
       if (process.env.STAMBHA_API_DEBUG === "1") {
         console.error("[@stambha/api]", error);
       }
@@ -110,8 +145,17 @@ export function createApiServer(options: ApiServerOptions = {}): ApiServer {
     routes,
     middlewares,
     options: resolved,
+    auth,
     handle,
     listen() {
+      if (!shouldListen(withAuthDefaults, withAuthDefaults.client)) {
+        return Promise.reject(
+          new Error(
+            "@stambha/api: listen skipped (listenWhen returned false or STAMBHA_API_LISTEN=0). Mount the API only in the bot worker entrypoint.",
+          ),
+        );
+      }
+
       const server: Server = createServer((req, res) => {
         void handle(req, res);
       });

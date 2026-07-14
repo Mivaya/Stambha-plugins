@@ -37,9 +37,43 @@ jobs:
       - run: pnpm build
       - run: pnpm test
 
+      - name: Resolve publish filter
+        id: filter
+        run: |
+          set -euo pipefail
+          TAG="${{ github.event.release.tag_name }}"
+          if [ "${{ github.event_name }}" != "release" ] || [ -z "${TAG}" ]; then
+            echo "filter=./packages/*" >> "$GITHUB_OUTPUT"
+            echo "mode=all" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Per-package tags: v<dir>-<semver> (e.g. vapi-1.1.0)
+          if [[ "$TAG" =~ ^v([a-z0-9-]+)-([0-9]+\.[0-9]+\.[0-9]+.*)$ ]]; then
+            PKG="${BASH_REMATCH[1]}"
+            VER="${BASH_REMATCH[2]}"
+            PKG_JSON="packages/${PKG}/package.json"
+            if [ ! -f "$PKG_JSON" ]; then
+              echo "No package at ${PKG_JSON} for tag ${TAG}"
+              exit 1
+            fi
+            ACTUAL="$(node -p "require('./${PKG_JSON}').version")"
+            if [ "$ACTUAL" != "$VER" ]; then
+              echo "Tag version ${VER} != package.json version ${ACTUAL} (${PKG_JSON})"
+              exit 1
+            fi
+            echo "filter=@stambha/${PKG}" >> "$GITHUB_OUTPUT"
+            echo "mode=package" >> "$GITHUB_OUTPUT"
+            echo "Publishing single package @stambha/${PKG}@${VER}"
+            exit 0
+          fi
+          # Legacy monorepo tags (v1.0.0, v0.2.2, …): publish all packages at current versions
+          echo "filter=./packages/*" >> "$GITHUB_OUTPUT"
+          echo "mode=all" >> "$GITHUB_OUTPUT"
+          echo "Legacy/non-package tag ${TAG} — publishing all packages/*"
+
       - name: Publish (dry run)
         if: github.event_name == 'workflow_dispatch' && inputs.dry_run
-        run: pnpm -r publish --dry-run --access public --no-git-checks --filter './packages/*'
+        run: pnpm -r publish --dry-run --access public --no-git-checks --filter '${{ steps.filter.outputs.filter }}'
 
       - name: Publish to npm
         if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
@@ -49,6 +83,6 @@ jobs:
           else
             TAG=latest
           fi
-          pnpm -r publish --access public --no-git-checks --tag "$TAG" --filter './packages/*'
+          pnpm -r publish --access public --no-git-checks --tag "$TAG" --filter '${{ steps.filter.outputs.filter }}'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

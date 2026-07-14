@@ -1,6 +1,6 @@
 {
   "name": "@stambha/api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "HTTP API host for Stambha bots — mountable router for user-built admin frontends",
   "author": "Mivaya",
   "license": "MIT",
@@ -45,16 +45,21 @@
   },
   "peerDependencies": {
     "@stambha/core": "^1.2.0",
-    "@stambha/plugins": "^1.2.0"
+    "@stambha/plugins": "^1.2.0",
+    "@stambha/vault": "^1.2.0"
   },
   "peerDependenciesMeta": {
     "@stambha/plugins": {
+      "optional": true
+    },
+    "@stambha/vault": {
       "optional": true
     }
   },
   "devDependencies": {
     "@stambha/core": "^1.2.0",
     "@stambha/plugins": "^1.2.0",
+    "@stambha/vault": "^1.2.0",
     "@types/node": "^22.13.4",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3",
