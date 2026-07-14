@@ -47,8 +47,8 @@ jobs:
             echo "mode=all" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          # Per-package tags: @stambha/<dir>@<semver> (sapphiredev/plugins style)
-          if [[ "$TAG" =~ ^@stambha/([a-z0-9-]+)@([0-9]+\.[0-9]+\.[0-9]+.*)$ ]]; then
+          # Per-package tags: v<dir>-<semver> (e.g. vapi-1.1.0)
+          if [[ "$TAG" =~ ^v([a-z0-9-]+)-([0-9]+\.[0-9]+\.[0-9]+.*)$ ]]; then
             PKG="${BASH_REMATCH[1]}"
             VER="${BASH_REMATCH[2]}"
             PKG_JSON="packages/${PKG}/package.json"

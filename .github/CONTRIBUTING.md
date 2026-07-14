@@ -144,17 +144,20 @@ Merging to `main` does not publish npm packages — that only happens on a publi
 
 Full detail: [PUBLISHING.md](./PUBLISHING.md).
 
+Tags use `v<package>-<semver>`; GitHub Release titles use `v<semver> — @stambha/<package>` (same `v… — …` flavour as core).
+
 ```bash
 # 1. Merge feature PRs to main
 # 2. Bump selected package(s) + edit CHANGELOG.md
 pnpm version:bump 1.1.0 api
-git add -A && git commit -m "chore: release @stambha/api@1.1.0"
+git add -A && git commit -m "chore: release @stambha/api 1.1.0"
 
 # 3. Tag and push
-git tag '@stambha/api@1.1.0' && git push origin '@stambha/api@1.1.0'
+git tag vapi-1.1.0 && git push origin vapi-1.1.0
 
 # 4. Create a published GitHub Release
-#    Tag + title: @stambha/api@1.1.0  →  npm publish for that package only
+#    Tag:   vapi-1.1.0
+#    Title: v1.1.0 — @stambha/api  →  npm publish for that package only
 ```
 
 - **Stable** — normal release → npm dist-tag `latest`
