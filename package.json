@@ -24,9 +24,9 @@
     "publish:npm": "pnpm -r publish --access public --no-git-checks --filter './packages/*'"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.16",
-    "typescript": "^5.7.3",
-    "vitest": "^3.0.5"
+    "@biomejs/biome": "^2.5.3",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
   "packageManager": "pnpm@9.15.4",
   "engines": {
