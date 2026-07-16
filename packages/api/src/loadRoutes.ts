@@ -161,38 +161,36 @@ async function resolveModuleRoute(
 }
 
 async function walkFiles(dir: string, extensions: readonly string[]): Promise<string[]> {
-  let entries: Awaited<ReturnType<typeof readdir>>;
   try {
-    entries = await readdir(dir, { withFileTypes: true });
+    const entries = await readdir(dir, { withFileTypes: true });
+    const out: string[] = [];
+    for (const entry of entries) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (entry.name === "node_modules" || entry.name.startsWith(".")) continue;
+        out.push(...(await walkFiles(full, extensions)));
+        continue;
+      }
+      if (!entry.isFile()) continue;
+      const ext = extname(entry.name).toLowerCase();
+      if (!extensions.includes(ext)) continue;
+      // Skip declaration files
+      if (
+        entry.name.endsWith(".d.ts") ||
+        entry.name.endsWith(".d.mts") ||
+        entry.name.endsWith(".d.cts")
+      ) {
+        continue;
+      }
+      // Ensure it's a route-named file before expensive import
+      if (!FILE_RE.test(entry.name)) continue;
+      const s = await stat(full);
+      if (s.isFile()) out.push(full);
+    }
+    return out;
   } catch (error) {
     const err = error as NodeJS.ErrnoException;
     if (err.code === "ENOENT") return [];
     throw error;
   }
-
-  const out: string[] = [];
-  for (const entry of entries) {
-    const full = join(dir, entry.name);
-    if (entry.isDirectory()) {
-      if (entry.name === "node_modules" || entry.name.startsWith(".")) continue;
-      out.push(...(await walkFiles(full, extensions)));
-      continue;
-    }
-    if (!entry.isFile()) continue;
-    const ext = extname(entry.name).toLowerCase();
-    if (!extensions.includes(ext)) continue;
-    // Skip declaration files
-    if (
-      entry.name.endsWith(".d.ts") ||
-      entry.name.endsWith(".d.mts") ||
-      entry.name.endsWith(".d.cts")
-    ) {
-      continue;
-    }
-    // Ensure it's a route-named file before expensive import
-    if (!FILE_RE.test(entry.name)) continue;
-    const s = await stat(full);
-    if (s.isFile()) out.push(full);
-  }
-  return out;
 }
