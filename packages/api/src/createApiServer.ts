@@ -4,6 +4,7 @@ import { createAuthRuntime, resolveRestPort, shouldListen } from "./auth/createA
 import type { AuthRuntime } from "./auth/types.js";
 import { createApiRequest } from "./http/ApiRequest.js";
 import { createApiResponse } from "./http/ApiResponse.js";
+import { loadRoutes } from "./loadRoutes.js";
 import { createBodyMiddleware } from "./middleware/body.js";
 import { createCorsMiddleware } from "./middleware/cors.js";
 import { MiddlewareStore } from "./middleware/MiddlewareStore.js";
@@ -18,7 +19,7 @@ import { createGuildRoutes } from "./routes/guilds.js";
 import { createHealthRoute } from "./routes/health.js";
 import { createSettingsRoutes } from "./routes/settings.js";
 import { createVersionRoute } from "./routes/version.js";
-import type { ApiServerHandle, ApiServerOptions } from "./types.js";
+import type { ApiServerHandle, ApiServerOptions, RouteDefinition } from "./types.js";
 import { resolveApiServerOptions } from "./validateOptions.js";
 
 export interface ApiServer {
@@ -34,19 +35,73 @@ export interface ApiServer {
   ): Promise<void>;
 }
 
+function withAuthCredentialDefaults(options: ApiServerOptions): ApiServerOptions {
+  return options.auth && options.credentials === undefined
+    ? { ...options, credentials: true }
+    : options;
+}
+
+/**
+ * Create a mountable HTTP API server (sync).
+ *
+ * For {@link ApiServerOptions.routesDir}, use {@link createApiServerAsync} instead.
+ */
+export function createApiServer(options: ApiServerOptions = {}): ApiServer {
+  if (options.routesDir) {
+    throw new Error(
+      "@stambha/api: routesDir requires createApiServerAsync() (or createApiPlugin).",
+    );
+  }
+  const resolved = withAuthCredentialDefaults(options);
+  return buildApiServer(resolved, resolved.routes ?? []);
+}
+
+/**
+ * Create a mountable HTTP API server, optionally loading file-based routes from {@link ApiServerOptions.routesDir}.
+ */
+export async function createApiServerAsync(options: ApiServerOptions = {}): Promise<ApiServer> {
+  const resolved = withAuthCredentialDefaults(options);
+  const auth = createAuthRuntime(resolved);
+  if (auth) {
+    auth.restPort = resolveRestPort(auth, resolved.client);
+  }
+
+  const fileRoutes = resolved.routesDir
+    ? await loadRoutes(resolved.routesDir, {
+        context: {
+          ...(resolved.client !== undefined ? { client: resolved.client } : {}),
+          auth,
+          ...(auth?.restPort !== undefined || resolved.restPort !== undefined
+            ? { restPort: auth?.restPort ?? resolved.restPort }
+            : {}),
+        },
+      })
+    : [];
+
+  return buildApiServer(resolved, [...fileRoutes, ...(resolved.routes ?? [])], auth);
+}
+
 /**
  * Create a mountable HTTP API server for user-built admin frontends.
  * Built-in routes: `GET /health`, `GET /version`.
  * With `auth`: OAuth, sessions, guild list, optional Vault settings.
  */
-export function createApiServer(options: ApiServerOptions = {}): ApiServer {
-  const withAuthDefaults: ApiServerOptions =
-    options.auth && options.credentials === undefined ? { ...options, credentials: true } : options;
-  const resolved = resolveApiServerOptions(withAuthDefaults);
-  const auth = createAuthRuntime(withAuthDefaults);
-  if (auth) {
-    auth.restPort = resolveRestPort(auth, withAuthDefaults.client);
-  }
+function buildApiServer(
+  options: ApiServerOptions,
+  extraRoutes: readonly RouteDefinition[],
+  existingAuth?: AuthRuntime | null,
+): ApiServer {
+  const resolved = resolveApiServerOptions(options);
+  const auth =
+    existingAuth !== undefined
+      ? existingAuth
+      : (() => {
+          const created = createAuthRuntime(options);
+          if (created) {
+            created.restPort = resolveRestPort(created, options.client);
+          }
+          return created;
+        })();
 
   const routes = new RouteStore();
   const middlewares = new MiddlewareStore();
@@ -70,7 +125,7 @@ export function createApiServer(options: ApiServerOptions = {}): ApiServer {
     middlewares.register(createRequireAuthMiddleware());
   }
 
-  for (const mw of withAuthDefaults.middlewares ?? []) {
+  for (const mw of options.middlewares ?? []) {
     middlewares.register(mw);
   }
 
@@ -81,24 +136,20 @@ export function createApiServer(options: ApiServerOptions = {}): ApiServer {
     });
   };
 
-  register(createHealthRoute(withAuthDefaults.client));
+  register(createHealthRoute(options.client));
   register(createVersionRoute());
 
   if (auth) {
     for (const route of createAuthRoutes(auth)) register(route);
-    for (const route of createGuildRoutes(auth, () =>
-      resolveRestPort(auth, withAuthDefaults.client),
-    )) {
+    for (const route of createGuildRoutes(auth, () => resolveRestPort(auth, options.client))) {
       register(route);
     }
-    for (const route of createSettingsRoutes(auth, () =>
-      resolveRestPort(auth, withAuthDefaults.client),
-    )) {
+    for (const route of createSettingsRoutes(auth, () => resolveRestPort(auth, options.client))) {
       register(route);
     }
   }
 
-  for (const route of withAuthDefaults.routes ?? []) {
+  for (const route of extraRoutes) {
     register(route);
   }
 
@@ -148,7 +199,7 @@ export function createApiServer(options: ApiServerOptions = {}): ApiServer {
     auth,
     handle,
     listen() {
-      if (!shouldListen(withAuthDefaults, withAuthDefaults.client)) {
+      if (!shouldListen(options, options.client)) {
         return Promise.reject(
           new Error(
             "@stambha/api: listen skipped (listenWhen returned false or STAMBHA_API_LISTEN=0). Mount the API only in the bot worker entrypoint.",

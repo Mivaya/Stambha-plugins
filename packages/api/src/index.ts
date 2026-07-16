@@ -44,9 +44,16 @@ export {
   type ApiServer,
   createApiServer,
   createApiServer as createDashboardServer,
+  createApiServerAsync,
 } from "./createApiServer.js";
 export { createApiRequest } from "./http/ApiRequest.js";
 export { createApiResponse } from "./http/ApiResponse.js";
+export {
+  type LoadRoutesOptions,
+  loadRoutes,
+  type ParsedRouteFile,
+  parseRouteFilename,
+} from "./loadRoutes.js";
 export { BodyTooLargeError, createBodyMiddleware } from "./middleware/body.js";
 export { createCorsMiddleware } from "./middleware/cors.js";
 export { MiddlewareStore } from "./middleware/MiddlewareStore.js";
@@ -54,6 +61,14 @@ export { createRateLimitMiddleware } from "./middleware/rateLimit.js";
 export { createRequestIdMiddleware } from "./middleware/requestId.js";
 export { createCsrfMiddleware, createRequireAuthMiddleware } from "./middleware/requireAuth.js";
 export { createSessionMiddleware } from "./middleware/session.js";
+export {
+  isRouteClass,
+  isRouteDefinition,
+  isRouteHandler,
+  Route,
+  type RouteClass,
+  type RouteLoadContext,
+} from "./route/Route.js";
 export { RouteStore } from "./route/RouteStore.js";
 export { joinPrefix, normalizePath, type RouteMatch, Router } from "./router/Router.js";
 export { createAuthRoutes } from "./routes/auth.js";
