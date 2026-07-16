@@ -29,6 +29,12 @@ export interface ApiServerOptions extends ApiDashboardOptions {
   client?: StambhaClient;
   /** Extra routes registered after built-ins. */
   routes?: RouteDefinition[];
+  /**
+   * Directory of file-based routes (`hello-world.get.ts`, nested folders, …).
+   * Loaded via {@link loadRoutes} and merged with {@link routes}.
+   * Requires {@link createApiServerAsync} or {@link createApiPlugin}.
+   */
+  routesDir?: string;
   /** Extra middlewares registered after built-ins (sorted by position). */
   middlewares?: MiddlewareDefinition[];
 }

@@ -45,6 +45,43 @@ const handle = await server.listen();
 
 Built-ins without auth: `GET /health`, `GET /version`.
 
+### File-based routes
+
+Put handlers under a directory (commonly `src/routes/`) using `name.method.ts` naming:
+
+| File | Route |
+|------|--------|
+| `hello-world.get.ts` | `GET /hello-world` |
+| `guilds/[id].get.ts` | `GET /guilds/[id]` |
+| `users/profile.post.ts` | `POST /users/profile` |
+
+```ts
+// src/routes/hello-world.get.ts
+import type { RouteHandler } from "@stambha/api";
+
+const run: RouteHandler = async (_req, res) => {
+  res.json({ hello: "stambha" });
+};
+export default run;
+```
+
+```ts
+import { createApiServerAsync, Route } from "@stambha/api";
+
+// Or extend Route (optional static create for DI):
+// export default class HelloRoute extends Route { … }
+
+const server = await createApiServerAsync({
+  routesDir: new URL("./routes", import.meta.url).pathname,
+  // merges with explicit routes:
+  routes: [/* … */],
+});
+```
+
+`createApiPlugin({ routesDir })` loads the same way on `postStart`. Sync `createApiServer` rejects `routesDir` — use `createApiServerAsync` or the plugin.
+
+You can still import route modules manually and pass them as `routes: […]` without a directory scan.
+
 ### Dashboard auth + guild settings
 
 ```ts
@@ -124,7 +161,8 @@ See [docs/tier-split.md](./docs/tier-split.md).
 
 | Export | Purpose |
 |--------|---------|
-| `createApiServer` / `createApiPlugin` | Host + lifecycle |
+| `createApiServer` / `createApiServerAsync` / `createApiPlugin` | Host + lifecycle (`routesDir` on async/plugin) |
+| `loadRoutes` / `Route` | File-based route discovery |
 | `MemorySessionStore` | Default session store (swap for multi-replica) |
 | `Router`, `RouteStore`, `MiddlewareStore` | Custom routes/middleware |
 
