@@ -42,14 +42,14 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "@stambha/core": "^1.2.0"
+    "@stambha/core": "^1.2.1"
   },
   "devDependencies": {
-    "@stambha/core": "^1.2.0",
-    "@types/node": "^22.13.4",
+    "@stambha/core": "^1.2.1",
+    "@types/node": "^26.1.1",
     "tsup": "^8.3.6",
-    "typescript": "^5.7.3",
-    "vitest": "^3.0.5"
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
   "publishConfig": {
     "access": "public"
