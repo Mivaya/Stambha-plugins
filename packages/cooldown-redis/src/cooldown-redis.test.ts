@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { CONSUME_SCRIPT, createRedisCooldownStore } from "./RedisCooldownStore.js";
 import type { RedisCooldownClient } from "./RedisCooldownStore.js";
+import { CONSUME_SCRIPT, createRedisCooldownStore } from "./RedisCooldownStore.js";
 
 interface ZEntry {
   member: string;
@@ -20,15 +20,17 @@ function createFakeRedis(): RedisCooldownClient & { zsets: Map<string, ZEntry[]>
   return {
     zsets,
     async eval(_script, options) {
-      const key = options.keys[0]!;
+      const [key] = options.keys;
+      if (key === undefined) return [0, 0];
       const now = Number(options.arguments[0]);
       const window = Number(options.arguments[1]);
       const limit = Number(options.arguments[2]);
-      const memberId = options.arguments[3]!;
+      const memberId = options.arguments[3] ?? `${now}-0`;
       const windowStart = now - window;
       const entries = prune(key, windowStart);
       if (entries.length >= limit) {
-        const oldest = entries[0]!;
+        const oldest = entries[0];
+        if (!oldest) return [0, 0];
         const retry = Math.max(0, Math.floor(oldest.score + window - now));
         return [0, retry];
       }
@@ -48,8 +50,8 @@ function createFakeRedis(): RedisCooldownClient & { zsets: Map<string, ZEntry[]>
     async *scanIterator(options) {
       const pattern = options.MATCH;
       const prefix = pattern.endsWith("*") ? pattern.slice(0, -1) : pattern;
-      for (const key of [...zsets.keys()]) {
-        if (key.startsWith(prefix)) yield key;
+      for (const redisKey of [...zsets.keys()]) {
+        if (redisKey.startsWith(prefix)) yield redisKey;
       }
     },
   };

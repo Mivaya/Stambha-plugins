@@ -5,10 +5,7 @@ import type { CooldownConsumeResult, CooldownStore } from "@stambha/gates";
  * Compatible with `redis` (node-redis) clients; injectable for tests.
  */
 export interface RedisCooldownClient {
-  eval(
-    script: string,
-    options: { keys: string[]; arguments: string[] },
-  ): Promise<unknown>;
+  eval(script: string, options: { keys: string[]; arguments: string[] }): Promise<unknown>;
   del(key: string | string[]): Promise<number>;
   scanIterator(options: { MATCH: string; COUNT?: number }): AsyncIterable<string>;
 }
