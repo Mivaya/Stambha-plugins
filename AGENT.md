@@ -28,7 +28,8 @@ Official **optional** packages for [Stambha](https://github.com/mivaya/Stambha).
 | Package | Role |
 |---------|------|
 | `@stambha/api` | HTTP API host for user-built admin frontends |
-| `@stambha/cache` | Pluggable cache |
+| `@stambha/cache` | Pluggable cache (`MemoryCache`) |
+| `@stambha/cache-redis` | Redis `Cache` driver |
 | `@stambha/metrics` | Prometheus metrics |
 | `@stambha/pagination` | Embed pagination via Signals |
 | `@stambha/vault-sql` | SQL Vault drivers |

@@ -1,6 +1,6 @@
 # Contributing to Stambha-plugins
 
-Thank you for helping maintain official **optional** packages for [Stambha](https://github.com/mivaya/Stambha). This repo publishes `@stambha/api`, `@stambha/cache`, `@stambha/metrics`, `@stambha/vault-sql`, and future extensions — each with **independent** semver.
+Thank you for helping maintain official **optional** packages for [Stambha](https://github.com/mivaya/Stambha). This repo publishes `@stambha/api`, `@stambha/cache`, `@stambha/cache-redis`, `@stambha/metrics`, `@stambha/vault-sql`, and future extensions — each with **independent** semver.
 
 ## Ways to Contribute
 
