@@ -1,0 +1,61 @@
+{
+  "name": "@stambha/cache-redis",
+  "version": "1.0.0",
+  "description": "Redis-backed Cache driver for Stambha gateway and bot workers",
+  "author": "Mivaya",
+  "license": "MIT",
+  "homepage": "https://github.com/Mivaya/Stambha-plugins/tree/main/packages/cache-redis#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mivaya/Stambha-plugins.git",
+    "directory": "packages/cache-redis"
+  },
+  "bugs": {
+    "url": "https://github.com/Mivaya/Stambha/issues"
+  },
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "stambha",
+    "cache",
+    "redis"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@stambha/cache": "^1.0.0",
+    "redis": "^4.7.0 || ^5.0.0"
+  },
+  "devDependencies": {
+    "@stambha/cache": "^1.0.0",
+    "@types/node": "^22.13.4",
+    "redis": "^5.8.2",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
