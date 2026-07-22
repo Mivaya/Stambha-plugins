@@ -57,6 +57,27 @@ importers:
         specifier: ^3.0.5
         version: 3.2.6(@types/node@22.19.20)
 
+  packages/cache-redis:
+    devDependencies:
+      '@stambha/cache':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.19.20
+      redis:
+        specifier: ^5.8.2
+        version: 5.12.1(@opentelemetry/api@1.9.1)
+      tsup:
+        specifier: ^8.3.6
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.5
+        version: 3.2.6(@types/node@22.19.20)
+
   packages/cooldown-redis:
     devDependencies:
       '@stambha/gates':
@@ -531,6 +552,10 @@ packages:
     resolution: {integrity: sha512-X+zaP2x+j4RXGfbp/seSoRHWnPxzApilDszisZxbYH5C/jTxFhCtDNdPGZb9lJyYPs24wGxruPF7Y+sIXt9Gzw==}
     cpu: [x64]
     os: [win32]
+
+  '@stambha/cache@1.0.0':
+    resolution: {integrity: sha512-V5NvhqBa51wL1an3vFDonWWPFMi/66PB+GiXUOoUoMI/Ktunvoj2ggJtuEs0iid2OD717FQYwMcwjedvh6H+fQ==}
+    engines: {node: '>=20'}
 
   '@stambha/core@1.2.0':
     resolution: {integrity: sha512-1Ga1hhztCFNfl/RguvE4ofax8QwMndXbVSJ2N32cxgoJhY1oynrynh6BeRkWqhgGjDgBTS+bybsUlivqZXkYaw==}
@@ -1270,6 +1295,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.61.1':
     optional: true
+
+  '@stambha/cache@1.0.0': {}
 
   '@stambha/core@1.2.0':
     dependencies:

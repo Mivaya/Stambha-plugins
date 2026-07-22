@@ -40,14 +40,17 @@ Use behind gateway workers to avoid re-fetching guild/channel payloads on every 
 | `MemoryCache`, `createMemoryCache` | In-process TTL cache |
 | `CacheSetOptions` | Per-key TTL overrides |
 
+For **shared** cache across workers, use [`@stambha/cache-redis`](../cache-redis).
+
 ---
 
 ## Related packages
 
 | Package | Role |
 |---------|------|
-| [`@stambha/gateway`](../gateway) | Shard workers that benefit from caching |
-| [`@stambha/rest`](../rest) | Fetch missing entities on cache miss |
+| [`@stambha/cache-redis`](../cache-redis) | Redis `Cache` driver |
+| [`@stambha/gateway`](https://github.com/Mivaya/Stambha/tree/main/packages/gateway) | Shard workers that benefit from caching |
+| [`@stambha/rest`](https://github.com/Mivaya/Stambha/tree/main/packages/rest) | Fetch missing entities on cache miss |
 
 ---
 

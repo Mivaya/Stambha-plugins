@@ -29,6 +29,7 @@ Official **optional** packages for [Stambha](https://github.com/mivaya/Stambha).
 |---------|------|
 | `@stambha/api` | HTTP API host for user-built admin frontends |
 | `@stambha/cache` | Pluggable cache (`MemoryCache`) |
+| `@stambha/cache-redis` | Redis `Cache` driver |
 | `@stambha/cooldown-redis` | Redis `CooldownStore` for gates |
 | `@stambha/metrics` | Prometheus metrics |
 | `@stambha/pagination` | Embed pagination via Signals |
