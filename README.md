@@ -19,12 +19,13 @@ Published under [@stambha on npm](https://www.npmjs.com/org/stambha).
 | Package | Version | Role |
 |---------|---------|------|
 | [`@stambha/api`](packages/api) | 1.1.0 | HTTP API host for user-built admin frontends |
-| [`@stambha/cache`](packages/cache) | 1.0.0 | Pluggable cache (memory; Redis drivers planned) |
+| [`@stambha/cache`](packages/cache) | 1.0.0 | Pluggable cache (memory; see `@stambha/cache-redis` for Redis) |
+| [`@stambha/cooldown-redis`](packages/cooldown-redis) | 1.0.0 | Redis `CooldownStore` for `@stambha/gates` |
 | [`@stambha/metrics`](packages/metrics) | 1.0.0 | Prometheus metrics + HTTP scrape server |
 | [`@stambha/pagination`](packages/pagination) | 1.0.0 | Embed pagination (prev / next / dismiss) via Signals |
 | [`@stambha/vault-sql`](packages/vault-sql) | 1.0.0 | SQLite / PostgreSQL drivers for Vault |
 
-Future: `@stambha/i18n`, `@stambha/cron`, Redis drivers, …
+Future: `@stambha/i18n`, `@stambha/cron`, …
 
 The plugin **host** (`definePlugin`, lifecycle, container) lives in core as [`@stambha/plugins`](https://github.com/mivaya/Stambha/tree/main/packages/plugins) — this repo only ships optional capabilities.
 
@@ -38,6 +39,8 @@ pnpm add @stambha/pagination @stambha/core
 pnpm add @stambha/api @stambha/core @stambha/plugins
 # or
 pnpm add @stambha/vault-sql @stambha/vault @stambha/core
+# or (shared command cooldowns)
+pnpm add @stambha/cooldown-redis @stambha/gates redis
 ```
 
 Requires **Node.js 20+**. Peer dependencies on `@stambha/*` core packages — see each package’s `package.json` and README.
