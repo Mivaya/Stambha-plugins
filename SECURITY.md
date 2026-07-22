@@ -7,8 +7,7 @@
 | Latest on npm | Yes |
 | Unreleased / archived | No |
 
-Extension packages (`@stambha/api`, `@stambha/cache`, `@stambha/cache-redis`, `@stambha/metrics`, `@stambha/vault-sql`, …) are versioned **independently** — install the latest patch for the package you use.
-
+Extension packages (`@stambha/api`, `@stambha/cache`, `@stambha/cache-redis`, `@stambha/cooldown-redis`, `@stambha/metrics`, `@stambha/vault-sql`, …) are versioned **independently** — install the latest patch for the package you use.
 ## Reporting a vulnerability
 
 **Do not open a public GitHub issue** for security vulnerabilities.

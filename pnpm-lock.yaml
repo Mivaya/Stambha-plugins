@@ -78,6 +78,27 @@ importers:
         specifier: ^3.0.5
         version: 3.2.6(@types/node@22.19.20)
 
+  packages/cooldown-redis:
+    devDependencies:
+      '@stambha/gates':
+        specifier: ^1.2.0
+        version: 1.2.1(@stambha/core@1.2.0)
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.19.20
+      redis:
+        specifier: ^5.8.2
+        version: 5.12.1(@opentelemetry/api@1.9.1)
+      tsup:
+        specifier: ^8.3.6
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.5
+        version: 3.2.6(@types/node@22.19.20)
+
   packages/metrics:
     dependencies:
       prom-client:
@@ -539,6 +560,12 @@ packages:
   '@stambha/core@1.2.0':
     resolution: {integrity: sha512-1Ga1hhztCFNfl/RguvE4ofax8QwMndXbVSJ2N32cxgoJhY1oynrynh6BeRkWqhgGjDgBTS+bybsUlivqZXkYaw==}
     engines: {node: '>=20'}
+
+  '@stambha/gates@1.2.1':
+    resolution: {integrity: sha512-WVVvukGM36HuONO1VCRghjU4h8a/g8ltLiSPfrGLfVRnmNMuIDBh5dVSF/KcA+BhQ0R03jIVaic4grYnm44vRA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@stambha/core': 1.2.1
 
   '@stambha/plugins@1.2.0':
     resolution: {integrity: sha512-23gIMBue0jk2jImhDLtIPvPX+0/94+LJlOQ1mPgo29/eaxnqkVbtmsZcIw4Bu7nKC32tnyWsfFtLo2ve0xQ2FA==}
@@ -1275,6 +1302,10 @@ snapshots:
     dependencies:
       '@stambha/runtime': 1.2.0
       cron-parser: 5.6.1
+
+  '@stambha/gates@1.2.1(@stambha/core@1.2.0)':
+    dependencies:
+      '@stambha/core': 1.2.0
 
   '@stambha/plugins@1.2.0(@stambha/core@1.2.0)':
     dependencies:

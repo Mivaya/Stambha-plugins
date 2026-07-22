@@ -16,6 +16,7 @@ body:
         - "@stambha/api"
         - "@stambha/cache"
         - "@stambha/cache-redis"
+        - "@stambha/cooldown-redis"
         - "@stambha/metrics"
         - "@stambha/pagination"
         - "@stambha/vault-sql"
