@@ -1,4 +1,11 @@
-export { buildDismissPayload, buildPagePayload } from "./components.js";
+export {
+  buildClassicDismissPayload,
+  buildClassicPagePayload,
+  buildDismissPayload,
+  buildPagePayload,
+  embedToMarkdown,
+  pageTextBlocks,
+} from "./components.js";
 export { createPaginator } from "./createPaginator.js";
 export {
   PAGINATION_SIGNAL_NAME,
@@ -15,5 +22,6 @@ export type {
   Paginator,
   PaginatorLabels,
   PaginatorOptions,
+  PaginatorVariant,
   ResolvedPaginatorLabels,
 } from "./types.js";

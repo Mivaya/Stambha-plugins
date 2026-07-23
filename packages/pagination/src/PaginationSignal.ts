@@ -1,5 +1,10 @@
 import { type Registry, Signal, type SignalContext } from "@stambha/core";
-import { buildDismissPayload, buildPagePayload } from "./components.js";
+import {
+  buildClassicDismissPayload,
+  buildClassicPagePayload,
+  buildDismissPayload,
+  buildPagePayload,
+} from "./components.js";
 import { PAGINATION_SIGNAL_NAME, parsePaginationSuffix } from "./ids.js";
 import { pageAt } from "./pageAt.js";
 import { respondWithPage } from "./respond.js";
@@ -40,11 +45,20 @@ export class PaginationSignal extends Signal {
 
     const restPort = this.client.restPort;
     const pageCount = session.pages.length;
+    const classic = session.variant === "classic";
 
     if (parts.action === "dismiss") {
       const page = pageAt(session.pages, session.index);
+      const index = session.index;
       deleteSession(parts.sessionId);
-      await respondWithPage(ctx, restPort, buildDismissPayload(page));
+      const payload = classic
+        ? buildClassicDismissPayload(page)
+        : buildDismissPayload(page, {
+            index,
+            pageCount,
+            ...(session.accentColor !== undefined ? { accentColor: session.accentColor } : {}),
+          });
+      await respondWithPage(ctx, restPort, payload);
       return;
     }
 
@@ -67,16 +81,24 @@ export class PaginationSignal extends Signal {
     touchSession(parts.sessionId);
 
     const page = pageAt(session.pages, session.index);
-    await respondWithPage(
-      ctx,
-      restPort,
-      buildPagePayload(page, {
-        sessionId: parts.sessionId,
-        index: session.index,
-        pageCount,
-        labels: session.labels,
-        wrap: session.wrap,
-      }),
-    );
+    const payload = classic
+      ? buildClassicPagePayload(page, {
+          sessionId: parts.sessionId,
+          index: session.index,
+          pageCount,
+          labels: session.labels,
+          wrap: session.wrap,
+        })
+      : buildPagePayload(page, {
+          sessionId: parts.sessionId,
+          index: session.index,
+          pageCount,
+          labels: session.labels,
+          wrap: session.wrap,
+          showPageCount: session.showPageCount,
+          ...(session.accentColor !== undefined ? { accentColor: session.accentColor } : {}),
+        });
+
+    await respondWithPage(ctx, restPort, payload);
   }
 }

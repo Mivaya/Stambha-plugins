@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Packages use **independent** semver. Releases are tagged per package (`vapi-1.1.0`, title `v1.1.0 — @stambha/api`) — see [.github/PUBLISHING.md](.github/PUBLISHING.md).
 
+## [@stambha/pagination 1.1.0](https://github.com/Mivaya/Stambha-plugins/releases/tag/vpagination-1.1.0) - 2026-07-23
+
+### Changed
+
+- Default layout is **Components V2** (`IS_COMPONENTS_V2` + Container + Text Display + button row via `@stambha/core` builders)
+- Peer dependency is now `@stambha/core@^1.2.2` (requires Components V2 exports)
+
+### Added
+
+- `variant: "classic"` to keep content/embeds + Action Row
+- `accentColor`, `showPageCount`, `Page.displays`
+- Embed → markdown conversion for V2 pages
+- `buildClassicPagePayload` / `buildClassicDismissPayload`
+
 ## [@stambha/api 1.2.0](https://github.com/Mivaya/Stambha-plugins/releases/tag/vapi-1.2.0) - 2026-07-16
 
 ### Added
