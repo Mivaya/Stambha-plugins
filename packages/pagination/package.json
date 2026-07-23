@@ -1,7 +1,7 @@
 {
   "name": "@stambha/pagination",
-  "version": "1.0.0",
-  "description": "Embed pagination with prev/next/dismiss buttons for Stambha Signals",
+  "version": "1.1.0",
+  "description": "Components V2 pagination (prev/next/dismiss) for Stambha Signals",
   "author": "Mivaya",
   "license": "MIT",
   "homepage": "https://github.com/Mivaya/Stambha-plugins/tree/main/packages/pagination#readme",
@@ -19,7 +19,7 @@
     "stambha",
     "pagination",
     "signals",
-    "embeds"
+    "components-v2"
   ],
   "type": "module",
   "main": "./dist/index.cjs",
@@ -42,10 +42,10 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "@stambha/core": "^1.2.0"
+    "@stambha/core": "^1.2.1"
   },
   "devDependencies": {
-    "@stambha/core": "^1.2.0",
+    "@stambha/core": "^1.2.1",
     "@types/node": "^22.13.4",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3",

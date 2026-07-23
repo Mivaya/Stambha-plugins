@@ -82,7 +82,7 @@ importers:
     devDependencies:
       '@stambha/gates':
         specifier: ^1.2.0
-        version: 1.2.1(@stambha/core@1.2.0)
+        version: 1.2.1(@stambha/core@1.2.1)
       '@types/node':
         specifier: ^22.13.4
         version: 22.19.20
@@ -124,8 +124,8 @@ importers:
   packages/pagination:
     devDependencies:
       '@stambha/core':
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.2.1
+        version: 1.2.1
       '@types/node':
         specifier: ^22.13.4
         version: 22.19.20
@@ -147,7 +147,7 @@ importers:
     devDependencies:
       '@stambha/vault':
         specifier: ^1.2.0
-        version: 1.2.0(@stambha/core@1.2.0)
+        version: 1.2.0(@stambha/core@1.2.1)
       '@types/node':
         specifier: ^22.13.4
         version: 22.19.20
@@ -561,6 +561,10 @@ packages:
     resolution: {integrity: sha512-1Ga1hhztCFNfl/RguvE4ofax8QwMndXbVSJ2N32cxgoJhY1oynrynh6BeRkWqhgGjDgBTS+bybsUlivqZXkYaw==}
     engines: {node: '>=20'}
 
+  '@stambha/core@1.2.1':
+    resolution: {integrity: sha512-U2TtQREzwtvt/IdkrheH75iPKeSlZ/7P31XCuBFCC8KeKp8fLH1T3H0o5rmnFwi2M02i/z4yc/fmV7iyo3W1Mw==}
+    engines: {node: '>=20'}
+
   '@stambha/gates@1.2.1':
     resolution: {integrity: sha512-WVVvukGM36HuONO1VCRghjU4h8a/g8ltLiSPfrGLfVRnmNMuIDBh5dVSF/KcA+BhQ0R03jIVaic4grYnm44vRA==}
     engines: {node: '>=20'}
@@ -575,6 +579,10 @@ packages:
 
   '@stambha/runtime@1.2.0':
     resolution: {integrity: sha512-toSFqDE22KfakJu1hJgF1xG6inond5gU9mTP5PVB1rZ7YpysMQoWFy2qp4/6dFkOH1h48rqjgRXxqjYgF/t4uw==}
+    engines: {node: '>=20'}
+
+  '@stambha/runtime@1.2.1':
+    resolution: {integrity: sha512-EB98nhxVOpPMkqPjIAUhPkDGdoYqUJyj7q0CkUmVPXeGNELR2kpuJU9ZPxGo1SIKfFfhCtsI6iZ2Z5ddWrOI4g==}
     engines: {node: '>=20'}
 
   '@stambha/vault@1.2.0':
@@ -1303,9 +1311,14 @@ snapshots:
       '@stambha/runtime': 1.2.0
       cron-parser: 5.6.1
 
-  '@stambha/gates@1.2.1(@stambha/core@1.2.0)':
+  '@stambha/core@1.2.1':
     dependencies:
-      '@stambha/core': 1.2.0
+      '@stambha/runtime': 1.2.1
+      cron-parser: 5.6.1
+
+  '@stambha/gates@1.2.1(@stambha/core@1.2.1)':
+    dependencies:
+      '@stambha/core': 1.2.1
 
   '@stambha/plugins@1.2.0(@stambha/core@1.2.0)':
     dependencies:
@@ -1313,9 +1326,15 @@ snapshots:
 
   '@stambha/runtime@1.2.0': {}
 
+  '@stambha/runtime@1.2.1': {}
+
   '@stambha/vault@1.2.0(@stambha/core@1.2.0)':
     dependencies:
       '@stambha/core': 1.2.0
+
+  '@stambha/vault@1.2.0(@stambha/core@1.2.1)':
+    dependencies:
+      '@stambha/core': 1.2.1
 
   '@types/chai@5.2.3':
     dependencies:

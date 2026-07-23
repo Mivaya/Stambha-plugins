@@ -1,5 +1,5 @@
 import type { ReplyPayload } from "@stambha/core";
-import { buildPagePayload } from "./components.js";
+import { buildClassicPagePayload, buildPagePayload } from "./components.js";
 import { pageAt } from "./pageAt.js";
 import { createSessionId, setSession } from "./session.js";
 import type { Page, Paginator, PaginatorOptions, ResolvedPaginatorLabels } from "./types.js";
@@ -31,7 +31,7 @@ async function resolvePages(pages: PaginatorOptions["pages"]): Promise<Page[]> {
 
 /**
  * Create an in-memory paginator session and return a helper that builds the
- * initial message payload (page content + prev/next/dismiss buttons).
+ * initial message payload (Components V2 by default, or classic embeds).
  */
 export async function createPaginator(options: PaginatorOptions): Promise<Paginator> {
   const pages = await resolvePages(options.pages);
@@ -41,6 +41,8 @@ export async function createPaginator(options: PaginatorOptions): Promise<Pagina
   const startAt = options.startAt ?? 0;
   const index = Math.min(Math.max(0, startAt), pages.length - 1);
   const sessionId = createSessionId();
+  const variant = options.variant ?? "v2";
+  const showPageCount = options.showPageCount ?? true;
 
   const session = {
     pages,
@@ -49,7 +51,10 @@ export async function createPaginator(options: PaginatorOptions): Promise<Pagina
     wrap,
     labels,
     timeoutMs,
+    variant,
+    showPageCount,
     ...(options.userId !== undefined ? { userId: options.userId } : {}),
+    ...(options.accentColor !== undefined ? { accentColor: options.accentColor } : {}),
   };
   setSession(sessionId, session);
 
@@ -63,12 +68,23 @@ export async function createPaginator(options: PaginatorOptions): Promise<Pagina
     },
     message(): ReplyPayload {
       const page = pageAt(pages, session.index);
+      if (session.variant === "classic") {
+        return buildClassicPagePayload(page, {
+          sessionId,
+          index: session.index,
+          pageCount: pages.length,
+          labels,
+          wrap,
+        });
+      }
       return buildPagePayload(page, {
         sessionId,
         index: session.index,
         pageCount: pages.length,
         labels,
         wrap,
+        showPageCount: session.showPageCount,
+        ...(session.accentColor !== undefined ? { accentColor: session.accentColor } : {}),
       });
     },
   };
