@@ -11,7 +11,7 @@ Part of [**Stambha plugins**](https://github.com/Mivaya/Stambha-plugins) · requ
 ## Install
 
 ```bash
-pnpm add @stambha/pagination@^1.1.0 @stambha/core@^1.3.0
+pnpm add @stambha/pagination@^1.1.1 @stambha/core@^1.3.0
 ```
 
 Requires **Node.js 20+**.

@@ -1,6 +1,6 @@
 {
   "name": "@stambha/metrics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Prometheus metrics and observability for Stambha — counters, histograms, and /metrics HTTP server",
   "author": "Mivaya",
   "license": "MIT",
