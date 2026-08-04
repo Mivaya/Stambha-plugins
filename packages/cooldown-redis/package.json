@@ -1,6 +1,6 @@
 {
   "name": "@stambha/cooldown-redis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Redis-backed CooldownStore for @stambha/gates (shared across workers)",
   "author": "Mivaya",
   "license": "MIT",
@@ -42,11 +42,11 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "@stambha/gates": "^1.2.0",
+    "@stambha/gates": "^1.3.0",
     "redis": "^4.7.0 || ^5.0.0"
   },
   "devDependencies": {
-    "@stambha/gates": "^1.2.0",
+    "@stambha/gates": "^1.3.0",
     "@types/node": "^22.13.4",
     "redis": "^5.8.2",
     "tsup": "^8.3.6",
