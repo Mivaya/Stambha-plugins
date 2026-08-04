@@ -8,7 +8,7 @@ Official extensions for [Stambha](https://github.com/mivaya/Stambha) — publish
 [![Node](https://img.shields.io/node/v/@stambha/cache?color=339933&logo=node.js)](https://nodejs.org)
 [![npm](https://img.shields.io/npm/v/@stambha/cache?color=cb3837&logo=npm)](https://www.npmjs.com/package/@stambha/cache)
 
-Peers on Stambha core **^1.2.0** where applicable. Package versions are independent (see table).
+Peers on Stambha core **^1.3.0** where applicable. Package versions are independent (see table).
 
 ---
 
@@ -18,12 +18,12 @@ Published under [@stambha on npm](https://www.npmjs.com/org/stambha).
 
 | Package | Version | Role |
 |---------|---------|------|
-| [`@stambha/api`](packages/api) | 1.1.0 | HTTP API host for user-built admin frontends |
+| [`@stambha/api`](packages/api) | 1.2.0 | HTTP API host for user-built admin frontends |
 | [`@stambha/cache`](packages/cache) | 1.0.0 | Pluggable cache (`MemoryCache`) |
 | [`@stambha/cache-redis`](packages/cache-redis) | 1.0.0 | Redis `Cache` driver (shared across workers) |
 | [`@stambha/cooldown-redis`](packages/cooldown-redis) | 1.0.0 | Redis `CooldownStore` for `@stambha/gates` |
 | [`@stambha/metrics`](packages/metrics) | 1.0.0 | Prometheus metrics + HTTP scrape server |
-| [`@stambha/pagination`](packages/pagination) | 1.0.0 | Embed pagination (prev / next / dismiss) via Signals |
+| [`@stambha/pagination`](packages/pagination) | 1.1.0 | Components V2 pagination (prev / next / dismiss) via Signals |
 | [`@stambha/vault-sql`](packages/vault-sql) | 1.0.0 | SQLite / PostgreSQL drivers for Vault |
 
 Future: `@stambha/i18n`, `@stambha/cron`, …

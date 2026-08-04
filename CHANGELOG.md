@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Packages use **independent** semver. Releases are tagged per package (`vapi-1.1.0`, title `v1.1.0 — @stambha/api`) — see [.github/PUBLISHING.md](.github/PUBLISHING.md).
 
+## Unreleased
+
+### Changed
+
+- Peer ranges aligned with Stambha core **1.3.0**:
+  - `@stambha/api` — `@stambha/core` / `@stambha/plugins` / `@stambha/vault` → `^1.3.0`
+  - `@stambha/pagination` — `@stambha/core` → `^1.3.0`
+  - `@stambha/metrics` — `@stambha/core` → `^1.3.0`
+  - `@stambha/vault-sql` — `@stambha/vault` → `^1.3.0`
+  - `@stambha/cooldown-redis` — `@stambha/gates` → `^1.3.0`
+- Docs / README install lines updated for core `^1.3.0`
+
 ## [@stambha/pagination 1.1.0](https://github.com/Mivaya/Stambha-plugins/releases/tag/vpagination-1.1.0) - 2026-07-23
 
 ### Changed
