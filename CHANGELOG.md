@@ -9,7 +9,7 @@ Packages use **independent** semver. Releases are tagged per package (`vapi-1.1.
 
 ## [Core 1.3.0 peers] - 2026-08-04
 
-Peer ranges aligned with Stambha core **v1.3.0**. Publish each package with its own tag (`v<package>-<semver>`).
+Peer ranges aligned with Stambha core **v1.3.0**.
 
 ### Changed
 
