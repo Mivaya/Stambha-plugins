@@ -53,6 +53,7 @@ export {
   loadRoutes,
   type ParsedRouteFile,
   parseRouteFilename,
+  unwrapModuleExport,
 } from "./loadRoutes.js";
 export { BodyTooLargeError, createBodyMiddleware } from "./middleware/body.js";
 export { createCorsMiddleware } from "./middleware/cors.js";

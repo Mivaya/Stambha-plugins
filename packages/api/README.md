@@ -80,6 +80,8 @@ const server = await createApiServerAsync({
 
 `createApiPlugin({ routesDir })` loads the same way on `postStart`. Sync `createApiServer` rejects `routesDir` — use `createApiServerAsync` or the plugin.
 
+CommonJS route files (`"type":"commonjs"` / `.cjs`) that use `export default class` / `module.exports = { default: … }` are supported: `loadRoutes` unwraps nested `default` / `__esModule` interop shapes.
+
 You can still import route modules manually and pass them as `routes: […]` without a directory scan.
 
 ### Dashboard auth + guild settings

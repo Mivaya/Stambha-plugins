@@ -110,12 +110,13 @@ async function resolveModuleRoute(
   parsed: ParsedRouteFile,
   ctx: RouteLoadContext,
 ): Promise<RouteDefinition | null> {
+  const unwrappedDefault = unwrapModuleExport(mod.default);
   const candidates = [
-    mod.default,
+    unwrappedDefault,
     mod.route,
     mod.Route,
     ...Object.values(mod).filter((v) => v !== mod.default),
-  ];
+  ].flatMap((value) => expandExportCandidates(value));
 
   for (const value of candidates) {
     if (isRouteDefinition(value)) {
@@ -147,7 +148,7 @@ async function resolveModuleRoute(
     }
   }
 
-  const run = mod.default ?? mod.run;
+  const run = unwrapModuleExport(mod.default) ?? mod.run;
   if (isRouteHandler(run)) {
     return {
       path: parsed.path,
@@ -158,6 +159,34 @@ async function resolveModuleRoute(
   }
 
   return null;
+}
+
+/**
+ * Unwrap CommonJS / interop `default` nesting.
+ *
+ * With `"type": "commonjs"`, `export default class` loaded via dynamic `import()`
+ * often becomes `{ default: { default: Class, __esModule: true } }` — a single
+ * `.default` read then fails `isRouteClass` and registers zero routes.
+ */
+export function unwrapModuleExport(value: unknown): unknown {
+  let current = value;
+  // Bound depth — avoid cycles on pathological objects.
+  for (let i = 0; i < 4; i++) {
+    if (!current || typeof current !== "object") return current;
+    const record = current as Record<string, unknown>;
+    if (!("default" in record)) return current;
+    const next = record.default;
+    if (next === current) return current;
+    current = next;
+  }
+  return current;
+}
+
+/** Include both the raw export and its unwrapped form for classification. */
+function expandExportCandidates(value: unknown): unknown[] {
+  const unwrapped = unwrapModuleExport(value);
+  if (unwrapped === value) return [value];
+  return [unwrapped, value];
 }
 
 async function walkFiles(dir: string, extensions: readonly string[]): Promise<string[]> {
