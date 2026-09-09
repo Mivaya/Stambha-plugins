@@ -2,8 +2,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
 import { createApiServer, createApiServerAsync } from "./createApiServer.js";
-import { loadRoutes, parseRouteFilename } from "./loadRoutes.js";
-import { Route } from "./route/Route.js";
+import { loadRoutes, parseRouteFilename, unwrapModuleExport } from "./loadRoutes.js";
+import { isRouteClass, Route } from "./route/Route.js";
 
 const fixturesDir = join(dirname(fileURLToPath(import.meta.url)), "__fixtures__", "routes");
 
@@ -61,6 +61,25 @@ describe("Route", () => {
     const def = new Hello().toDefinition();
     expect(def.path).toBe("/hello");
     expect(def.method).toBe("GET");
+  });
+});
+
+describe("unwrapModuleExport", () => {
+  it("unwraps nested default (CommonJS interop shape)", () => {
+    class NestedRoute extends Route {
+      async run() {}
+    }
+    const nested = { default: NestedRoute, __esModule: true };
+    expect(unwrapModuleExport(nested)).toBe(NestedRoute);
+    expect(unwrapModuleExport({ default: nested })).toBe(NestedRoute);
+    expect(isRouteClass(unwrapModuleExport({ default: nested }))).toBe(true);
+  });
+
+  it("returns primitives and already-unwrapped values", () => {
+    expect(unwrapModuleExport(null)).toBeNull();
+    expect(unwrapModuleExport(42)).toBe(42);
+    const fn = () => undefined;
+    expect(unwrapModuleExport(fn)).toBe(fn);
   });
 });
 
