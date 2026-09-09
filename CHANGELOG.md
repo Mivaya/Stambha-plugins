@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Packages use **independent** semver. Releases are tagged per package (`vapi-1.1.0`, title `v1.1.0 — @stambha/api`) — see [.github/PUBLISHING.md](.github/PUBLISHING.md).
 
+## [@stambha/api 1.2.2](https://github.com/Mivaya/Stambha-plugins/releases/tag/vapi-1.2.2) - 2026-09-09
+
+### Fixed
+
+- **CJS `loadRoutes`** — unwrap nested `default` / `__esModule` interop so `export default class` under `"type":"commonjs"` registers routes (`#39`).
+
+## [@stambha/cache-redis 1.0.0](https://github.com/Mivaya/Stambha-plugins/releases/tag/vcache-redis-1.0.0) - 2026-09-09
+
+### Added
+
+- First npm release of Redis `Cache` driver (`createRedisCache` / `RedisCache`) for shared gateway/bot workers (A1).
+
 ## [Core 1.3.0 peers] - 2026-08-04
 
 Peer ranges aligned with Stambha core **v1.3.0**.
