@@ -1,6 +1,6 @@
 {
   "name": "@stambha/api",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "HTTP API host for Stambha bots — mountable router for user-built admin frontends",
   "author": "Mivaya",
   "license": "MIT",
