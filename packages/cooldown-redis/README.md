@@ -16,7 +16,7 @@ Requires `@stambha/gates` with **async-capable** `CooldownStore.consume` (Stambh
 pnpm add @stambha/cooldown-redis @stambha/gates redis
 ```
 
-Requires **Node.js 20+**. Peers: `@stambha/gates@^1.3.0`, `redis@^4.7 || ^5`.
+Requires **Node.js 20+**. Peers: `@stambha/gates@^1.3.3`, `redis@^4.7 || ^5`.
 
 ---
 

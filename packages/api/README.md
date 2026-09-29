@@ -2,7 +2,7 @@
 
 **HTTP API host** for Stambha bots — mountable router for user-built admin frontends, with optional Discord OAuth, sessions, and Vault guild settings.
 
-Part of [**Stambha plugins**](https://github.com/Mivaya/Stambha-plugins) · peers [`@stambha/core`](https://github.com/Mivaya/Stambha) `^1.3.0` · optional [`@stambha/plugins`](https://github.com/Mivaya/Stambha), [`@stambha/vault`](https://github.com/Mivaya/Stambha)
+Part of [**Stambha plugins**](https://github.com/Mivaya/Stambha-plugins) · peers [`@stambha/core`](https://github.com/Mivaya/Stambha) `^1.3.3` · optional [`@stambha/plugins`](https://github.com/Mivaya/Stambha), [`@stambha/vault`](https://github.com/Mivaya/Stambha)
 
 ---
 

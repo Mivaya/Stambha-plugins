@@ -4,14 +4,14 @@
 
 Default layout: `IS_COMPONENTS_V2` + Container + Text Display + button row (same builders as `@stambha/core`). Classic embeds are converted to markdown. Use `variant: "classic"` only if you must keep Discord embeds.
 
-Part of [**Stambha plugins**](https://github.com/Mivaya/Stambha-plugins) · requires [`@stambha/core`](https://github.com/Mivaya/Stambha) `^1.3.0` (Components V2 builders)
+Part of [**Stambha plugins**](https://github.com/Mivaya/Stambha-plugins) · requires [`@stambha/core`](https://github.com/Mivaya/Stambha) `^1.3.3` (Components V2 builders)
 
 ---
 
 ## Install
 
 ```bash
-pnpm add @stambha/pagination@^1.1.1 @stambha/core@^1.3.0
+pnpm add @stambha/pagination@^1.1.2 @stambha/core@^1.3.3
 ```
 
 Requires **Node.js 20+**.

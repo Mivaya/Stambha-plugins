@@ -77,7 +77,7 @@ NPM_TOKEN=... pnpm publish:npm
 
 ```json
 "peerDependencies": {
-  "@stambha/vault": "^1.3.0"
+  "@stambha/vault": "^1.3.3"
 }
 ```
 
