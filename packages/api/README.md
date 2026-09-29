@@ -115,13 +115,15 @@ When `auth` is set (credentials default on):
 | `GET`/`POST` | `/auth/callback` | Code exchange → session cookie |
 | `POST` | `/auth/logout` | Revoke + clear cookie (needs `X-CSRF-Token`) |
 | `GET` | `/auth/me` | Current user + `csrfToken` |
-| `GET` | `/guilds` | Manageable guilds ∩ bot presence |
+| `GET` | `/guilds` | Manageable guilds ∩ bot presence (cached OAuth list; `degraded` when Discord is rate-limited) |
 | `GET` | `/guilds/:id/channels` | Channel list (bot REST) |
 | `GET` | `/guilds/:id/roles` | Role list (bot REST) |
 | `GET`/`PATCH` | `/guilds/:id/settings` | Vault guild settings (if `vault`) |
 | `GET` | `/guilds/:id/settings/schema` | Blueprint fields for forms |
 
 Sessions are **server-side** (opaque HttpOnly cookie). Mutating requests must send `X-CSRF-Token` from `/auth/me`.
+
+`GET /guilds` and guild access checks share an `OAuthGuildsCache` keyed by Discord user id (not the access token). Defaults: 10 minute fresh TTL, 30 minute stale window, 90 second cooldown after a 429 without `Retry-After`. Rate limits return `{ guilds, degraded: true }` instead of throwing. `POST /auth/logout` drops that user's entry. Pass `oauthGuilds.store` (`get` / `set` / `delete`, same shape as `@stambha/cache`) for more than one API process. Raw `fetchOAuthGuilds` still hits Discord and throws `OAuthHttpError` on failure.
 
 This package does **not** ship a hosted UI.
 

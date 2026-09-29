@@ -83,6 +83,7 @@ export function createAuthRoutes(runtime: AuthRuntime): RouteDefinition[] {
             token: request.session.accessToken,
           }).catch(() => false);
           await runtime.sessions.delete(request.session.id);
+          await runtime.oauthGuilds.invalidate(request.session.userId);
         }
         response.clearCookie(runtime.options.cookie.name, runtime.options.cookie);
         response.json({ ok: true });

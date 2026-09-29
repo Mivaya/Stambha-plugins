@@ -8,9 +8,22 @@ export {
   fetchOAuthUser,
   guildIsManageable,
   MANAGE_GUILD,
+  OAuthHttpError,
   refreshAccessToken,
+  retryAfterMsFromResponse,
   revokeToken,
 } from "./auth/discordOAuth.js";
+export {
+  DEFAULT_OAUTH_GUILDS_COOLDOWN_MS,
+  DEFAULT_OAUTH_GUILDS_STALE_MS,
+  DEFAULT_OAUTH_GUILDS_TTL_MS,
+  MemoryOAuthGuildsStore,
+  OAuthGuildsCache,
+  type OAuthGuildsCacheOptions,
+  type OAuthGuildsResult,
+  type OAuthGuildsSnapshot,
+  type OAuthGuildsStore,
+} from "./auth/oauthGuildsCache.js";
 export {
   createCsrfToken,
   createOAuthState,

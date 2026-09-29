@@ -109,6 +109,39 @@ export async function revokeToken(options: {
   return res.ok || res.status === 200;
 }
 
+/** Discord HTTP failure from an OAuth user-token call. */
+export class OAuthHttpError extends Error {
+  readonly status: number;
+  /** Milliseconds from `Retry-After` when Discord sent one. */
+  readonly retryAfterMs: number | null;
+
+  constructor(message: string, status: number, retryAfterMs: number | null) {
+    super(message);
+    this.name = "OAuthHttpError";
+    this.status = status;
+    this.retryAfterMs = retryAfterMs;
+  }
+}
+
+/** Parse `Retry-After` (delta-seconds or HTTP-date) into milliseconds. */
+export function retryAfterMsFromResponse(res: Response, now = Date.now()): number | null {
+  const header = res.headers.get("retry-after");
+  if (!header) return null;
+  const seconds = Number(header);
+  if (Number.isFinite(seconds)) return Math.max(0, Math.ceil(seconds * 1000));
+  const at = Date.parse(header);
+  if (Number.isFinite(at)) return Math.max(0, at - now);
+  return null;
+}
+
+function throwOAuthHttp(res: Response, what: string): never {
+  throw new OAuthHttpError(
+    `@stambha/api: failed to fetch ${what} (${res.status})`,
+    res.status,
+    retryAfterMsFromResponse(res),
+  );
+}
+
 export async function fetchOAuthUser(
   accessToken: string,
   fetchImpl: typeof fetch = fetch,
@@ -116,7 +149,7 @@ export async function fetchOAuthUser(
   const res = await fetchImpl(`${DISCORD_API}/users/@me`, {
     headers: { authorization: `Bearer ${accessToken}` },
   });
-  if (!res.ok) throw new Error(`@stambha/api: failed to fetch user (${res.status})`);
+  if (!res.ok) throwOAuthHttp(res, "user");
   return (await res.json()) as DiscordOAuthUser;
 }
 
@@ -127,7 +160,7 @@ export async function fetchOAuthGuilds(
   const res = await fetchImpl(`${DISCORD_API}/users/@me/guilds`, {
     headers: { authorization: `Bearer ${accessToken}` },
   });
-  if (!res.ok) throw new Error(`@stambha/api: failed to fetch guilds (${res.status})`);
+  if (!res.ok) throwOAuthHttp(res, "guilds");
   return (await res.json()) as OAuthGuild[];
 }
 

@@ -2,6 +2,7 @@ import type { RestPort, StambhaClient } from "@stambha/core";
 import { resolveCookieOptions } from "./cookies.js";
 import { MANAGE_GUILD } from "./discordOAuth.js";
 import { MemoryOAuthStateStore, MemorySessionStore } from "./MemorySessionStore.js";
+import { OAuthGuildsCache } from "./oauthGuildsCache.js";
 import type { ApiAuthOptions, ApiDashboardOptions, AuthRuntime } from "./types.js";
 
 export function createAuthRuntime(options: ApiDashboardOptions): AuthRuntime | null {
@@ -25,6 +26,7 @@ export function createAuthRuntime(options: ApiDashboardOptions): AuthRuntime | n
     sessions: auth.sessionStore ?? new MemorySessionStore(),
     states: auth.stateStore ?? new MemoryOAuthStateStore(),
     requiredPermission: options.authorization?.requiredPermission ?? MANAGE_GUILD,
+    oauthGuilds: new OAuthGuildsCache(options.oauthGuilds),
     vault: options.vault ?? null,
     guildSettingsLedger: options.guildSettingsLedger ?? "guild",
     restPort: options.restPort ?? null,

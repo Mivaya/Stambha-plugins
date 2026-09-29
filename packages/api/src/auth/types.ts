@@ -1,4 +1,5 @@
 import type { RestPort, StambhaClient } from "@stambha/core";
+import type { OAuthGuildsCache, OAuthGuildsCacheOptions } from "./oauthGuildsCache.js";
 
 /** Minimal Vault surface used by settings routes (duck-typed; optional peer). */
 export interface VaultLike {
@@ -120,6 +121,11 @@ export interface ApiDashboardOptions {
   rejectGatewayListen?: boolean;
   /** RestPort override; otherwise `client.restPort`. */
   restPort?: RestPort;
+  /**
+   * Cached `GET /users/@me/guilds` used by `/guilds` and `assertGuildAccess`.
+   * Keyed by user id. Pass `store` for a shared `@stambha/cache` (memory or Redis).
+   */
+  oauthGuilds?: OAuthGuildsCacheOptions;
 }
 
 export interface AuthRuntime {
@@ -131,6 +137,7 @@ export interface AuthRuntime {
   readonly sessions: SessionStore;
   readonly states: OAuthStateStore;
   readonly requiredPermission: bigint;
+  readonly oauthGuilds: OAuthGuildsCache;
   readonly vault: VaultLike | null;
   readonly guildSettingsLedger: string;
   restPort: RestPort | null;
