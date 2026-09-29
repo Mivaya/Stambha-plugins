@@ -121,11 +121,7 @@ export class OAuthGuildsCache {
 
     try {
       const guilds = await this.#fetchGuilds(session.accessToken);
-      await this.#store.set(
-        cacheKey(session.userId),
-        { guilds, fetchedAt: now },
-        this.#staleMs,
-      );
+      await this.#store.set(cacheKey(session.userId), { guilds, fetchedAt: now }, this.#staleMs);
       this.#cooldownUntil.delete(session.userId);
       return { guilds: [...guilds], degraded: false };
     } catch (error) {

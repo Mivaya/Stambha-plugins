@@ -14,6 +14,13 @@ export {
   revokeToken,
 } from "./auth/discordOAuth.js";
 export {
+  createCsrfToken,
+  createOAuthState,
+  createSessionId,
+  MemoryOAuthStateStore,
+  MemorySessionStore,
+} from "./auth/MemorySessionStore.js";
+export {
   DEFAULT_OAUTH_GUILDS_COOLDOWN_MS,
   DEFAULT_OAUTH_GUILDS_STALE_MS,
   DEFAULT_OAUTH_GUILDS_TTL_MS,
@@ -24,13 +31,6 @@ export {
   type OAuthGuildsSnapshot,
   type OAuthGuildsStore,
 } from "./auth/oauthGuildsCache.js";
-export {
-  createCsrfToken,
-  createOAuthState,
-  createSessionId,
-  MemoryOAuthStateStore,
-  MemorySessionStore,
-} from "./auth/MemorySessionStore.js";
 export { createPkcePair } from "./auth/pkce.js";
 export type {
   ApiAuthOptions,
