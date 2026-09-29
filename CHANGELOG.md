@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Packages use **independent** semver. Releases are tagged per package (`vapi-1.1.0`, title `v1.1.0 — @stambha/api`) — see [.github/PUBLISHING.md](.github/PUBLISHING.md).
 
+## [Core 1.3.3 peers] - 2026-09-29
+
+Peer ranges aligned with Stambha core **v1.3.3**.
+
+### Changed
+
+- `@stambha/core` / `@stambha/plugins` / `@stambha/vault` / `@stambha/gates` peers → `^1.3.3` where applicable
+- Docs and README install lines updated for core `^1.3.3`
+
+### Packages in this release
+
+| Package | Version |
+| ------- | ------- |
+| `@stambha/api` | 1.2.3 |
+| `@stambha/pagination` | 1.1.2 |
+| `@stambha/metrics` | 1.0.2 |
+| `@stambha/vault-sql` | 1.0.2 |
+| `@stambha/cooldown-redis` | 1.0.2 |
+
+`@stambha/cache` and `@stambha/cache-redis` unchanged (no core peers).
+
+## [@stambha/api 1.2.3] - 2026-09-29
+
+### Fixed
+
+- **OAuth guild list** — cache `GET /users/@me/guilds` by Discord user id (10 minute fresh, 30 minute stale, 429 cooldown from `Retry-After` or 90 seconds). `GET /guilds` and `assertGuildAccess` return stale or empty data with `degraded: true` instead of throwing. `POST /auth/logout` drops the entry. Optional `oauthGuilds.store` matches `@stambha/cache`.
+
 ## [@stambha/api 1.2.2](https://github.com/Mivaya/Stambha-plugins/releases/tag/vapi-1.2.2) - 2026-09-09
 
 ### Fixed

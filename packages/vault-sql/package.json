@@ -1,6 +1,6 @@
 {
   "name": "@stambha/vault-sql",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "SQL drivers for Stambha Vault — SQLite and PostgreSQL backends",
   "author": "Mivaya",
   "license": "MIT",
@@ -41,13 +41,13 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "@stambha/vault": "^1.3.0"
+    "@stambha/vault": "^1.3.3"
   },
   "dependencies": {
     "pg": "^8.13.3"
   },
   "devDependencies": {
-    "@stambha/vault": "^1.3.0",
+    "@stambha/vault": "^1.3.3",
     "@types/node": "^22.13.4",
     "@types/pg": "^8.11.11",
     "tsup": "^8.3.6",

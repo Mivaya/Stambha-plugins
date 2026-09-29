@@ -103,9 +103,10 @@ describe("loadRoutes", () => {
     });
     const di = routes.find((r) => r.path === "/di-route");
     expect(di).toBeDefined();
+    if (!di) return;
 
     const json: unknown[] = [];
-    await di!.run(
+    await di.run(
       {} as never,
       {
         json: (v: unknown) => {

@@ -1,5 +1,5 @@
 import type { RestPort } from "@stambha/core";
-import { fetchOAuthGuilds, guildIsManageable } from "../auth/discordOAuth.js";
+import { guildIsManageable } from "../auth/discordOAuth.js";
 import type { AuthRuntime } from "../auth/types.js";
 import type { RouteDefinition } from "../types.js";
 
@@ -17,10 +17,10 @@ export function createGuildRoutes(
           response.status(401).json({ error: "Unauthorized" });
           return;
         }
-        const oauthGuilds = await fetchOAuthGuilds(request.session.accessToken);
+        const listed = await runtime.oauthGuilds.get(request.session);
         const rest = getRestPort();
         const result = [];
-        for (const guild of oauthGuilds) {
+        for (const guild of listed.guilds) {
           const manageable = guildIsManageable(guild, runtime.requiredPermission);
           if (!manageable) continue;
           const botPresent = rest ? await isBotInGuild(rest, guild.id) : false;
@@ -34,7 +34,11 @@ export function createGuildRoutes(
             botPresent,
           });
         }
-        response.json({ guilds: result });
+        response.json({
+          guilds: result,
+          degraded: listed.degraded,
+          ...(listed.retryAfterMs !== undefined ? { retryAfterMs: listed.retryAfterMs } : {}),
+        });
       },
     },
     {
@@ -110,9 +114,17 @@ export async function assertGuildAccess(
     return false;
   }
 
-  const oauthGuilds = await fetchOAuthGuilds(request.session.accessToken);
-  const guild = oauthGuilds.find((g) => g.id === guildId);
+  const listed = await runtime.oauthGuilds.get(request.session);
+  const guild = listed.guilds.find((entry) => entry.id === guildId);
   if (!guild || !guildIsManageable(guild, runtime.requiredPermission)) {
+    if (listed.degraded && !guild) {
+      response.status(503).json({
+        error: "Discord guild list unavailable",
+        degraded: true,
+        ...(listed.retryAfterMs !== undefined ? { retryAfterMs: listed.retryAfterMs } : {}),
+      });
+      return false;
+    }
     response.status(403).json({ error: "Forbidden" });
     return false;
   }

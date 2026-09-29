@@ -8,7 +8,9 @@ export {
   fetchOAuthUser,
   guildIsManageable,
   MANAGE_GUILD,
+  OAuthHttpError,
   refreshAccessToken,
+  retryAfterMsFromResponse,
   revokeToken,
 } from "./auth/discordOAuth.js";
 export {
@@ -18,6 +20,17 @@ export {
   MemoryOAuthStateStore,
   MemorySessionStore,
 } from "./auth/MemorySessionStore.js";
+export {
+  DEFAULT_OAUTH_GUILDS_COOLDOWN_MS,
+  DEFAULT_OAUTH_GUILDS_STALE_MS,
+  DEFAULT_OAUTH_GUILDS_TTL_MS,
+  MemoryOAuthGuildsStore,
+  OAuthGuildsCache,
+  type OAuthGuildsCacheOptions,
+  type OAuthGuildsResult,
+  type OAuthGuildsSnapshot,
+  type OAuthGuildsStore,
+} from "./auth/oauthGuildsCache.js";
 export { createPkcePair } from "./auth/pkce.js";
 export type {
   ApiAuthOptions,
