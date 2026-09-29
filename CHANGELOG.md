@@ -34,10 +34,6 @@ Peer ranges aligned with Stambha core **v1.3.3**.
 
 - **OAuth guild list** — cache `GET /users/@me/guilds` by Discord user id (10 minute fresh, 30 minute stale, 429 cooldown from `Retry-After` or 90 seconds). `GET /guilds` and `assertGuildAccess` return stale or empty data with `degraded: true` instead of throwing. `POST /auth/logout` drops the entry. Optional `oauthGuilds.store` matches `@stambha/cache`.
 
-### Changed
-
-- Peers `@stambha/core`, `@stambha/plugins`, and `@stambha/vault` → `^1.3.3`.
-
 ## [@stambha/api 1.2.2](https://github.com/Mivaya/Stambha-plugins/releases/tag/vapi-1.2.2) - 2026-09-09
 
 ### Fixed
