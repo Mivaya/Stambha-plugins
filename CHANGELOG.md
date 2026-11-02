@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Packages use **independent** semver. Releases are tagged per package (`vapi-1.1.0`, title `v1.1.0 — @stambha/api`) — see [.github/PUBLISHING.md](.github/PUBLISHING.md).
 
+## [@stambha/display 1.0.0] - 2026-11-02
+
+### Added
+
+- **`@stambha/display`** — `EmbedManager`, `ContainerManager`, `fromClassicOptions` / `fromEmbed` migration helpers (classic embed → Components V2 Container). Peer `@stambha/core@^1.3.3`.
+
 ## [Core 1.3.3 peers] - 2026-09-29
 
 Peer ranges aligned with Stambha core **v1.3.3**.
@@ -27,6 +33,7 @@ Peer ranges aligned with Stambha core **v1.3.3**.
 | `@stambha/cooldown-redis` | 1.0.2 |
 
 `@stambha/cache` and `@stambha/cache-redis` unchanged (no core peers).
+
 
 ## [@stambha/api 1.2.3] - 2026-09-29
 

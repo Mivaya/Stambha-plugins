@@ -24,6 +24,7 @@ Published under [@stambha on npm](https://www.npmjs.com/org/stambha).
 | [`@stambha/cooldown-redis`](packages/cooldown-redis) | 1.0.2 | Redis `CooldownStore` for `@stambha/gates` |
 | [`@stambha/metrics`](packages/metrics) | 1.0.2 | Prometheus metrics + HTTP scrape server |
 | [`@stambha/pagination`](packages/pagination) | 1.1.2 | Components V2 pagination (prev / next / dismiss) via Signals |
+| [`@stambha/display`](packages/display) | 1.0.0 | EmbedManager / ContainerManager + classic embed → V2 migration |
 | [`@stambha/vault-sql`](packages/vault-sql) | 1.0.2 | SQLite / PostgreSQL drivers for Vault |
 
 Future: `@stambha/i18n`, `@stambha/cron`, …
@@ -35,6 +36,8 @@ The plugin **host** (`definePlugin`, lifecycle, container) lives in core as [`@s
 
 ```bash
 pnpm add @stambha/pagination @stambha/core
+# or
+pnpm add @stambha/display @stambha/core
 # or
 pnpm add @stambha/api @stambha/core @stambha/plugins
 # or
